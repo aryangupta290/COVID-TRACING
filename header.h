@@ -3,7 +3,7 @@
 
 #define NUM 100000
 
-enum  _status {negative, secondary_contact, primary_contact, positive};
+enum  __status {negative, secondary_contact, primary_contact, positive};
 struct __day {
 	_person person[NUM];
 	_path path;
@@ -40,5 +40,6 @@ typedef struct __station _station;
 typedef struct __path _path;
 typedef struct __route _route;
 typedef struct __list _list;
+typedef enum __status _status;
 
 #endif
