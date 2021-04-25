@@ -3,6 +3,7 @@
 
 #define NUM 100000
 
+int cur_day;
 enum  __status {negative, secondary_contact, primary_contact, positive};
 struct __day {
 	_person person[NUM];
@@ -19,7 +20,7 @@ struct __person {
 
 struct __station {
 	_status worst_affected;
-	_list list;
+	_list* list;
 };
 struct __list {
 	int person_id;
