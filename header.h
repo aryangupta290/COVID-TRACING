@@ -43,4 +43,22 @@ typedef struct __route _route;
 typedef struct __list _list;
 typedef enum __status _status;
 
+struct Node  //node for adjacency list
+{
+  int vertex;
+  int weight;
+  struct Node* next;
+};
+
+struct Graph
+{
+  int total_vertices;
+  struct Node** adjLists;
+};
+
+struct Node* create_Node(int);//Create a node, util function 
+struct Graph* create_Graph(int N);//Creates a graph of N vertices
+void addEdge(struct Graph*, int s, int d , int w);//Adds an edge of length w between s and d
+void print_Graph(struct Graph*);// prints the Graph, for testing 
+
 #endif
