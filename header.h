@@ -2,6 +2,7 @@
 #define __HEADER__
 
 #define NUM 100000
+#define DAY_MAX 15
 
 int cur_day;
 enum  __status {negative, secondary_contact, primary_contact, positive};
@@ -60,5 +61,14 @@ struct Node* create_Node(int);//Create a node, util function
 struct Graph* create_Graph(int N);//Creates a graph of N vertices
 void addEdge(struct Graph*, int s, int d , int w);//Adds an edge of length w between s and d
 void print_Graph(struct Graph*);// prints the Graph, for testing 
+
+typedef struct __day_queue
+{
+	int front,rear;
+	_day array[DAY_MAX];
+}_day_queue;
+
+_day_queue* init_queue();
+void enqueue(_day_queue* Queue, _day D);
 
 #endif
