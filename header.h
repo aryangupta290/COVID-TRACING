@@ -2,6 +2,7 @@
 #define __HEADER__
 
 #define NUM 100000
+
 int cur_day;
 extern const char* status_mapping[]; 
 //mapping from integer to its corresponding status in string
@@ -20,11 +21,15 @@ struct __person {
 	int station; // id of the station
 };
 
+#define DAY_MAX 15
+
+
 struct __station {
 	int worst_affected; //indicates the status of the worst affected person on the station
 	struct __list* list; // linked list of all the people on the station
 	float danger_value; 
 };
+
 struct __path {
 	int person_id;
 	struct __route* next_station; // pointer to linked list listing the person's route
@@ -36,8 +41,8 @@ struct __day {
 	struct __path* path;
 	struct __station station[NUM];
 }; // we maintain the status of the all the stations and persons for 15 days
-
-struct __day day[15];
+/* Uncomment the following line to test with arbitrary day array */
+//struct __day day[15];
 
 typedef struct __day _day;
 typedef struct __person _person;
@@ -45,6 +50,7 @@ typedef struct __station _station;
 typedef struct __path _path;
 typedef struct __route _route;
 typedef struct __list _list;
+
 
 struct Node  //node for adjacency list
 {
@@ -64,6 +70,7 @@ struct Graph* create_Graph(int N);//Creates a graph of N vertices
 void addEdge(struct Graph*, int s, int d , int w);//Adds an edge of length w between s and d
 void print_Graph(struct Graph*);// prints the Graph, for testing 
 
+
 /***** IMPLEMENTED ******/
 /* present in update-functions.c */
 void UpdateData(int id_person, int id_station, int daye);
@@ -82,4 +89,14 @@ int getWorstAffected(int id_station, int daye);
 _list* DeleteNodeById(_list* L, int id_person);
 _list* AddNodeAtStart(_list* L, int id_person);
 void PrintStatus(int n);
+
+typedef struct __day_queue
+{
+	int front,rear;
+	_day array[DAY_MAX];
+}_day_queue;
+
+_day_queue* init_queue();
+void enqueue(_day_queue* Queue, _day D);
+
 #endif
