@@ -15,10 +15,10 @@ struct __list {
 	struct __list* next;
 };
 struct __person {
-	int status;
-	int days; // number of days person has been 
+	int status;  // +ve=3/-ve=0/primary=2/secondary=1
+	int days; // number of days person has been affected/quarantined
 	int cause; // id of the person who could have been cause of infection
-	int station; // id of the station
+	int station; // id of the station where the person is currently present
 };
 
 #define DAY_MAX 15
@@ -39,10 +39,10 @@ struct __path {
 struct __day {
 	struct __person person[NUM];
 	struct __path* path;
-	struct __station station[NUM];
+	struct __station station[NUM] ;
 }; // we maintain the status of the all the stations and persons for 15 days
 /* Uncomment the following line to test with arbitrary day array */
-//struct __day day[15];
+struct __day day[15];
 
 typedef struct __day _day;
 typedef struct __person _person;
@@ -51,8 +51,8 @@ typedef struct __path _path;
 typedef struct __route _route;
 typedef struct __list _list;
 
-
-struct Node  //node for adjacency list
+/*node for adjacency list/Graph creation*/
+struct Node  
 {
   int vertex;
   int weight;
@@ -82,6 +82,7 @@ void AddPerson(int id_person, int station_to, int daye);
 void UpdateForDay(_path*P, int daye);
 void UpdateForPerson(_route* L, int id_person, int daye);
 void Backtrace(int start_day, int end_day);
+void DayIncrement(int daye, int T_ppl);
 
 /* present in general-functions.c */
 float getDangerIndex(int id_person, int daye);
