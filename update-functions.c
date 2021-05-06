@@ -19,37 +19,7 @@ void UpdateData(int id_person, int id_station, int daye)
 	}
 }
 
-void DayIncrement(int daye, int T_ppl)
-{
-	
-	for (int i = 0; i < T_ppl; i++)
-	{
-		// if person is covid +ve increase his no. of days affected
-		if (day[daye].person[i].status == 3)
-		{
-			day[daye].person[i].days++;
-		}
-		// if a primary contact is present on a station where worse affected person is not present,increment day count
-		else if (day[daye].person[i].status == 2)
-		{
-			int s_no = day[daye].person[i].station;
-			if (day[daye].station[s_no].worst_affected <= 2)
-			{
-				day[daye].person[i].days++;
-			}
-		}
-		//if 2ndary contact is present on a station where worse affected person is not present,increment day count
-		else if (day[daye].person[i].status == 1)
-		{
-			int s_no = day[daye].person[i].station;
-			if (day[daye].station[s_no].worst_affected <= 1)
-			{
-				day[daye].person[i].days++;
-			}
-		}
-		//for covid -ve person,no need of changing day count
-	}
-}
+
 void UpdateStation(int id_person, int id_station, int daye)
 {
 	_list *L;
@@ -161,6 +131,7 @@ void UpdateForDay(_path *P, int daye)
 		P = P->next_person;
 	}
 }
+
 void Backtrace(int start_day, int end_day)
 {
 	_path *P;
@@ -168,5 +139,53 @@ void Backtrace(int start_day, int end_day)
 	{
 		P = day[i].path;
 		UpdateForDay(P, i);
+	}
+}
+
+void DayIncrement(int daye, int T_ppl)
+{
+	int s_no;
+	for (int i = 0; i < T_ppl; i++)
+	{
+		// if person is covid +ve increase his no. of days affected
+		if (day[daye].person[i].status == 3)
+		{
+			day[daye].person[i].days++;
+		}
+		// if a primary contact is present on a station where worse affected person is not present,increment day count
+		else if (day[daye].person[i].status == 2)
+		{
+			s_no = day[daye].person[i].station;
+			if (day[daye].station[s_no].worst_affected <= 2)
+			{
+				day[daye].person[i].days++;
+			}
+		}
+		//if 2ndary contact is present on a station where worse affected person is not present,increment day count
+		else if (day[daye].person[i].status == 1)
+		{
+			s_no = day[daye].person[i].station;
+			if (day[daye].station[s_no].worst_affected <= 1)
+			{
+				day[daye].person[i].days++;
+			}
+		}
+		//for covid -ve person,no need of changing day count
+
+		/* if the total affected days = 14,then the person is not considered to be affected 
+		   and changing the status of the person might change the danger value and 
+		   the worst affected of the station on which he was present*/
+		if (day[daye].person[i].days == 14)
+		{
+			s_no = day[daye].person[i].station;
+			int temp = day[daye].person[i].status;
+			day[daye].station[s_no].danger_value = day[daye].station[s_no].danger_value - getDangerIndex(i, daye);
+			day[daye].person[i].days = -1;
+			day[daye].person[i].status = 0;
+			if(temp == day[daye].station[s_no].worst_affected)
+			{
+				day[daye].station[s_no].worst_affected = getWorstAffected(s_no,daye);
+			}
+		}
 	}
 }
