@@ -74,6 +74,7 @@ void enqueue(_day_queue *Queue, _day D)
 	//delete_day(Queue->array[Queue->rear]);
 	Queue->array[Queue->rear] = D;
 }
+/*  
 /////////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
 #include <stdio.h>
@@ -167,6 +168,7 @@ void AddPerson(int id_person, int station_to, int daye)
 	// update the location of the person:
 	day[daye].person[id_person].station = station_to;
 }
+*/
 /* The functions above are to be used for mainly two purposes.
  * We have to 
 	* 1. Update the status everyday a person travels from one place to another.
@@ -182,7 +184,7 @@ void AddPerson(int id_person, int station_to, int daye)
 * given that a list of people were covid positive since a particular day, we must look at all the travels made by peole on each day.
 * for one day, we have to traverse the path linked list of linked lists and and update the values accordingly and print the results
 */
-
+/*  
 void UpdateForPerson(_route *L, int id_person, int daye)
 {
 	int station_from = L->station_id;
@@ -286,8 +288,8 @@ void PrintStatus(int n)
 	printf("%s", status_mapping[n]);
 }
 
+*/
 /////////////////// Following is the code for the 3-way dijkstra implementation
-
 #include <limits.h>
 #define maxi 1000000000000000
 typedef long long int ll;
