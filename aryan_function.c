@@ -455,15 +455,6 @@ int isInMinHeap(struct MinHeap *minHeap, int v)
 		return 1;
 	return 0;
 }
-
-// A utility function used to print the solution
-void printArr(double dist[], int n, int parent[])
-{
-	printf("Vertex   Distance from Source\n");
-	for (int i = 0; i < n; ++i)
-		printf("%d \t\t %lf   %d\n", i, dist[i], parent[i]);
-}
-
 // The main function that calulates
 // distances of shortest paths from src to all
 // vertices. It is a O(ELogV) function
@@ -569,7 +560,7 @@ void add_path_one(_possible_path *possible_routes, double dist[], int src, int t
 	return;
 }
 /// This function would allow us to trace the 2nd best path from src to target
-void add_path_two(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index1, int divert1, bool a)
+void add_path_two(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index1, int divert1, int a)
 {
 	struct __route *temp;
 	double *temp1;
@@ -754,7 +745,7 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 	}
 	else
 	{
-		add_path_two(possible_routes, dist, src, target, parent, index1, divert1, true);
+		add_path_two(possible_routes, dist, src, target, parent, index1, divert1, 1);
 	}
 	// Code for the third shortest path
 	double min3 = INT_MAX;
@@ -810,12 +801,12 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 		if (min2 < min3)
 		{
 			possible_routes->no_of_possible_path = 3;
-			add_path_two(possible_routes, dist, src, target, parent, index2, divert2, false);
+			add_path_two(possible_routes, dist, src, target, parent, index2, divert2,0);
 		}
 		else if (min2 == min3)
 		{
 			possible_routes->no_of_possible_path = 3;
-			add_path_two(possible_routes, dist, src, target, parent, index2, divert2, false);
+			add_path_two(possible_routes, dist, src, target, parent, index2, divert2, 0);
 		}
 		else if (min2 > min3)
 		{
@@ -852,8 +843,11 @@ void add_day_struct(int person_id, int station)
 	}
 }
 
-void copy_day(int cur_day,int num_stations,int num_person)
+void copy_day(int cur_day, int num_stations, int num_person)
 {
+	day[(cur_day + 1) % 16].person = (struct __person *)malloc(num_person * sizeof(struct __person));
+	day[(cur_day + 1) % 16].station = (struct __station *)malloc(num_stations * sizeof(struct __station));
+	day[(cur_day + 1) % 16].path = NULL;
 
 	for (int i = 0; i < num_stations; i++)
 	{

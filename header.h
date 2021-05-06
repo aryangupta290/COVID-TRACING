@@ -146,7 +146,7 @@ void add_day_struct(int person_id, int station);
 ///3-WAY dijkstra
 _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, int target, int curr_day);
 void add_path_three(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index3, int divert3);	   // This function will add 3rd the shortest path to possible_routes struct
-void add_path_two(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index1, int divert1, bool a); // This function will add the 2nd shortest path to possible_routes struct
+void add_path_two(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index1, int divert1, int a); // This function will add the 2nd shortest path to possible_routes struct
 void add_path_one(_possible_path *possible_routes, double dist[], int src, int target, int parent[]);								   // This function will add the shortest path to possible_routes struct
 void dijkstra(struct Graph *graph, int src, double dist[], int curr_day, int parent[]);
 int isInMinHeap(struct MinHeap *minHeap, int v);			   // A utility function to check if a given vertex 'v' is in min heap or not

@@ -30,6 +30,7 @@ int main(void)
     {
         int station;
         scanf("%d", &station);
+        printf("Give station of person %d: ",i);
         // inserting this person in the initial day struct
         add_day_struct(i, station);
     }
@@ -42,16 +43,17 @@ int main(void)
     /// input 4 means given the station no ..we will print the list of covid positive ,primary,secondary,negative people in that station
     //// input 5 means we are done for that day
     /// input -1 means get out of the program
+    printf("(1)->Query 1 /// (1)->Query 1 /// (2)->Query 2 /// (3)->Query 3 /// (4)->Query 4\n");
     while (1)
     {
         bool if_added = false;
         printf("We are currently at day %d\n", cur_day);
         struct __path *temp; // stores the latest path that we get from query 2 to reduce traversal time
-        copy_day(cur_day,num_stations,num_person);
+        copy_day(cur_day, num_stations, num_person);
         while (1)
         {
             int query;
-            printf("(1)->query 1 ----- (2)->query2 ----- (3)->query4 ---- (4)->query4");
+            printf("Give query: ");
             scanf("%d", &query);
             if (query == 2)
             {
@@ -65,11 +67,11 @@ int main(void)
                 temp1 = three_way_dijkstra_implementation(graph, from_where, to_where, cur_day);
                 if (temp1->no_of_possible_path == 0)
                 {
-                    printf("There are no possible paths from %d to %d\n", from_where, to_where);
+                    printf("There are no possible paths from %d to %d: \n", from_where, to_where);
                 }
                 else if (temp1->no_of_possible_path == 1)
                 {
-                    printf("There is only one possible path as follows");
+                    printf("There is only one possible path as follows: \n");
                     struct __route *temp2 = &(temp1->best_path); // maintains which path the person is eventually gonna decide to go from
                     do
                     {
@@ -81,7 +83,7 @@ int main(void)
                     printf("The corresponding danger value for this path is %lf\n", temp1->best_path_danger_value);
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
-                    printf("Do u want to traverse through this path");
+                    printf("Do u want to traverse through this path: ");
                     scanf("%d", &may_accept);
                     if (may_accept)
                     {
@@ -109,7 +111,7 @@ int main(void)
                 }
                 else if (temp1->no_of_possible_path == 2)
                 {
-                    printf("There are only two possible path as follows");
+                    printf("There are only two possible path as follows: \n");
                     struct __route *temp2 = &(temp1->best_path);
                     do
                     {
@@ -172,7 +174,7 @@ int main(void)
                 }
                 else
                 {
-                    printf("There are all three possible path as follows");
+                    printf("There are all three possible path as follows: \n");
                     struct __route *temp2 = &(temp1->best_path);
                     do
                     {
@@ -258,7 +260,7 @@ int main(void)
             }
             else if (query == 3)
             {
-                printf("Give the id of the person whose status u want to print");
+                printf("Give the id of the person whose status u want to print: ");
                 int temp1;
                 scanf("%d", &temp1);
                 printf("Person id:%d\nStatus:%d\nCurrently on which station:%d\n", temp1, day[cur_day + 1].person[temp1].status, day[cur_day + 1].person[temp1].station);
@@ -273,13 +275,14 @@ int main(void)
                 int temp1;
                 scanf("%d", &temp1);
                 printf("Station id:%d \nWorst affected person in this station:%d\nDanger value of this station:%f\n", temp1, day[cur_day + 1].station[temp1].worst_affected, day[cur_day + 1].station[temp1].danger_value);
-                printf("List of people in this station: ");
+                printf("List of people in this station: \n");
                 struct __list *temp = day[cur_day + 1].station[temp1].list;
                 while (temp != NULL)
                 {
                     printf("Person_id: %d     Person_status: %d", temp->person_id, day[cur_day + 1].person[temp->person_id].status);
                     temp = temp->next;
                 }
+                printf("\n");
             }
             else if (query == 5)
             {
