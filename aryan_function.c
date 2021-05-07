@@ -801,7 +801,7 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 		if (min2 < min3)
 		{
 			possible_routes->no_of_possible_path = 3;
-			add_path_two(possible_routes, dist, src, target, parent, index2, divert2,0);
+			add_path_two(possible_routes, dist, src, target, parent, index2, divert2, 0);
 		}
 		else if (min2 == min3)
 		{
@@ -864,14 +864,16 @@ void copy_day(int cur_day, int num_stations, int num_person)
 		struct __list *temp5 = (struct __list *)malloc(sizeof(struct __list));
 		temp5->person_id = i;
 		temp5->next = NULL;
-		if (day[cur_day].station[day[cur_day].person[i].station].list == NULL)
+		if (day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list == NULL)
 		{
-			day[cur_day].station[day[cur_day].person[i].station].list = temp5;
+			day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list = temp5;
 		}
 		else
 		{
-			temp5->next = day[cur_day].station[day[cur_day].person[i].station].list;
-			day[cur_day].station[day[cur_day].person[i].station].list = temp5;
+			temp5->next = day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list;
+			day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list = temp5;
 		}
 	}
 };
+
+// day[0] path will be used to update for day[1]
