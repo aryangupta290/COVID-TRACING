@@ -95,7 +95,7 @@ int main(void)
                             day[cur_day].path->next_station = temp2;
                             day[cur_day].path->next_person = NULL;
                             temp = day[cur_day].path;
-                            UpdateForPerson(temp2, person_id, cur_day);
+                            UpdateForPerson(temp2, person_id, cur_day+1);
                         }
                         else
                         {
@@ -105,7 +105,7 @@ int main(void)
                             temp3->next_person = NULL;
                             temp->next_person = temp3;
                             temp = temp3;
-                            UpdateForPerson(temp2, person_id, cur_day);
+                            UpdateForPerson(temp2, person_id, cur_day+1);
                         }
                     }
                 }
@@ -159,7 +159,7 @@ int main(void)
                         day[cur_day].path->next_station = temp2;
                         day[cur_day].path->next_person = NULL;
                         temp = day[cur_day].path;
-                        UpdateForPerson(temp2, person_id, cur_day);
+                        UpdateForPerson(temp2, person_id, cur_day+1);
                     }
                     else
                     {
@@ -169,7 +169,7 @@ int main(void)
                         temp3->next_person = NULL;
                         temp->next_person = temp3;
                         temp = temp3;
-                        UpdateForPerson(temp2, person_id, cur_day);
+                        UpdateForPerson(temp2, person_id, cur_day+1);
                     }
                 }
                 else
@@ -237,7 +237,7 @@ int main(void)
                         day[cur_day].path->next_station = temp2;
                         day[cur_day].path->next_person = NULL;
                         temp = day[cur_day].path;
-                        UpdateForPerson(temp2, person_id, cur_day);
+                        UpdateForPerson(temp2, person_id, cur_day+1);
                     }
                     else
                     {
@@ -247,7 +247,7 @@ int main(void)
                         temp3->next_person = NULL;
                         temp->next_person = temp3;
                         temp = temp3;
-                        UpdateForPerson(temp2, person_id, cur_day);
+                        UpdateForPerson(temp2, person_id, cur_day+1);
                     }
                 }
             }
