@@ -51,7 +51,7 @@ int main(void)
     while (1)
     {
         bool if_added = false;
-        printf("We are currently at day %d\n\n", cur_day);
+        printf("We are currently at day %d\n\n", cur_day + 1);
         struct __path *temp; // stores the latest path that we get from query 2 to reduce traversal time
         copy_day(cur_day, num_stations, num_person);
 	DayIncrement((cur_day+1)%16, num_person);
@@ -96,12 +96,12 @@ int main(void)
                         if (!if_added)
                         {
                             if_added = true;
-                            day[cur_day].path = (struct __path *)malloc(sizeof(struct __path));
-                            day[cur_day].path->person_id = person_id;
-                            day[cur_day].path->next_station = temp2;
-                            day[cur_day].path->next_person = NULL;
-                            temp = day[cur_day].path;
-                            UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                            day[(cur_day) % 16].path = (struct __path *)malloc(sizeof(struct __path));
+                            day[(cur_day) % 16].path->person_id = person_id;
+                            day[(cur_day) % 16].path->next_station = temp2;
+                            day[(cur_day) % 16].path->next_person = NULL;
+                            temp = day[(cur_day) % 16].path;
+                            UpdateForPerson(temp2, person_id, cur_day + 1);
                         }
                         else
                         {
@@ -111,7 +111,7 @@ int main(void)
                             temp3->next_person = NULL;
                             temp->next_person = temp3;
                             temp = temp3;
-                            UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                            UpdateForPerson(temp2, person_id, cur_day + 1);
                         }
                     }
                     else
@@ -161,12 +161,12 @@ int main(void)
                     {
 
                         if_added = true;
-                        day[cur_day].path = (struct __path *)malloc(sizeof(struct __path));
-                        day[cur_day].path->person_id = person_id;
-                        day[cur_day].path->next_station = temp2;
-                        day[cur_day].path->next_person = NULL;
-                        temp = day[cur_day].path;
-                        UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                        day[(cur_day) % 16].path = (struct __path *)malloc(sizeof(struct __path));
+                        day[(cur_day) % 16].path->person_id = person_id;
+                        day[(cur_day) % 16].path->next_station = temp2;
+                        day[(cur_day) % 16].path->next_person = NULL;
+                        temp = day[(cur_day) % 16].path;
+                        UpdateForPerson(temp2, person_id, cur_day + 1);
                     }
                     else
                     {
@@ -176,7 +176,7 @@ int main(void)
                         temp3->next_person = NULL;
                         temp->next_person = temp3;
                         temp = temp3;
-                        UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                        UpdateForPerson(temp2, person_id, cur_day + 1);
                     }
                 }
                 else
@@ -238,12 +238,12 @@ int main(void)
                     {
 
                         if_added = true;
-                        day[cur_day].path = (struct __path *)malloc(sizeof(struct __path));
-                        day[cur_day].path->person_id = person_id;
-                        day[cur_day].path->next_station = temp2;
-                        day[cur_day].path->next_person = NULL;
-                        temp = day[cur_day].path;
-                        UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                        day[(cur_day) % 16].path = (struct __path *)malloc(sizeof(struct __path));
+                        day[(cur_day) % 16].path->person_id = person_id;
+                        day[(cur_day) % 16].path->next_station = temp2;
+                        day[(cur_day) % 16].path->next_person = NULL;
+                        temp = day[(cur_day) % 16].path;
+                        UpdateForPerson(temp2, person_id, cur_day + 1);
                     }
                     else
                     {
@@ -253,7 +253,7 @@ int main(void)
                         temp3->next_person = NULL;
                         temp->next_person = temp3;
                         temp = temp3;
-                        UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
+                        UpdateForPerson(temp2, person_id, cur_day + 1);
                     }
                 }
             }
@@ -262,6 +262,7 @@ int main(void)
                 int no_input_people;
                 printf("How many people are covid positive ");
                 scanf("%d", &no_input_people);
+
 		printf("Enter value of X: ");
 		int X; scanf("%d",&X);
 		int* list_no_people;
@@ -272,6 +273,7 @@ int main(void)
 		Backtrace(cur_day - X + 1, cur_day + 1, list_no_people, no_input_people, num_person, num_stations); 
 		free(list_no_people);
 		//6th day --> day[7];
+
             }
             else if (query == 3)
             {
@@ -302,7 +304,7 @@ int main(void)
             }
             else if (query == 5)
             {
-                cur_day=(cur_day+1)%16;
+                cur_day =cur_day + 1;
                 break;
             }
             else if (query == -1)
