@@ -1,13 +1,14 @@
+// A utility function to create
+// a new adjacency list node
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include "header.h"
-
-// A utility function to create
-// a new adjacency list node
-struct AdjListNode *newAdjListNode(int dest, int weight)
+struct AdjListNode *newAdjListNode(
+	int dest, int weight)
 {
-	struct AdjListNode *newNode =(struct AdjListNode *)
+	struct AdjListNode *newNode =
+		(struct AdjListNode *)
 			malloc(sizeof(struct AdjListNode));
 	newNode->dest = dest;
 	newNode->weight = weight;
@@ -37,7 +38,8 @@ struct Graph *createGraph(int V)
 }
 
 // Adds an edge to an undirected graph
-void addEdge(struct Graph *graph, int src, int dest, int weight)
+void addEdge(struct Graph *graph, int src,
+			 int dest, int weight)
 {
 	// Add an edge from src to dest.
 	// A new node is added to the adjacency
@@ -55,7 +57,6 @@ void addEdge(struct Graph *graph, int src, int dest, int weight)
 	graph->array[dest].head = newNode;
 }
 
-//Queue for storing Day structs
 _day_queue *init_queue()
 {
 	_day_queue *Queue = (void *)malloc(sizeof(_day_queue));
@@ -73,12 +74,10 @@ void enqueue(_day_queue *Queue, _day D)
 	//delete_day(Queue->array[Queue->rear]);
 	Queue->array[Queue->rear] = D;
 }
-
 /*  
 /////////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
 #include <stdio.h>
-
 void UpdateData(int id_person, int id_station, int daye)
 {
 	if (day[daye].person[id_person].status >= 2 || day[daye].station[id_station].worst_affected >= 2)
@@ -96,7 +95,6 @@ void UpdateData(int id_person, int id_station, int daye)
 		// If their status are same, then do nothing
 	}
 }
-
 void UpdateStation(int id_person, int id_station, int daye)
 {
 	_list *L;
@@ -111,7 +109,6 @@ void UpdateStation(int id_person, int id_station, int daye)
 	// Changed the status of all people on the station.
 	day[daye].station[id_station].worst_affected = day[daye].person[id_person].status - 1;
 }
-
 void UpdatePerson(int id_person, int id_station, int daye)
 {
 	_list *L;
@@ -133,7 +130,6 @@ void UpdatePerson(int id_person, int id_station, int daye)
 	day[daye].person[id_person].cause = L->person_id; // cause will be any arbitrary person on the station who has status same as worst affected.
 	day[daye].person[id_person].days = 0;
 }
-
 void UpdateRoute(_route *R, int id_person, int daye)
 {
 	while (R != NULL)
@@ -142,7 +138,6 @@ void UpdateRoute(_route *R, int id_person, int daye)
 		R = R->next_station;
 	}
 }
-
 void RemovePerson(int id_person, int station_from, int daye)
 {
 	// first check if person is at station_from, and remove it from the station linked list.
@@ -159,7 +154,6 @@ void RemovePerson(int id_person, int station_from, int daye)
 	if (day[daye].person[id_person].status == day[daye].station[station_from].worst_affected)
 		day[daye].station[station_from].worst_affected = getWorstAffected(station_from, daye);
 }
-
 void AddPerson(int id_person, int station_to, int daye)
 {
 	// Therefore we have to update the danger value, worst affected and id_person to the list.
@@ -174,7 +168,6 @@ void AddPerson(int id_person, int station_to, int daye)
 	// update the location of the person:
 	day[daye].person[id_person].station = station_to;
 }
-
 */
 /* The functions above are to be used for mainly two purposes.
  * We have to 
@@ -192,7 +185,6 @@ void AddPerson(int id_person, int station_to, int daye)
 * for one day, we have to traverse the path linked list of linked lists and and update the values accordingly and print the results
 */
 /*  
-
 void UpdateForPerson(_route *L, int id_person, int daye)
 {
 	int station_from = L->station_id;
@@ -206,7 +198,6 @@ void UpdateForPerson(_route *L, int id_person, int daye)
 	}
 	AddPerson(id_person, station_to, daye);
 }
-
 void UpdateForDay(_path *P, int daye)
 {
 	while (P != NULL)
@@ -215,7 +206,6 @@ void UpdateForDay(_path *P, int daye)
 		P = P->next_person;
 	}
 }
-
 void Backtrace(int start_day, int end_day)
 {
 	_path *P;
@@ -225,7 +215,6 @@ void Backtrace(int start_day, int end_day)
 		UpdateForDay(P, i);
 	}
 }
-
 ///////////////////////////////////////////////////////////////
 #include "header.h"
 #include <stdlib.h>
@@ -250,7 +239,6 @@ float getDangerIndex(int id_person, int daye)
 		return 0;
 	}
 }
-
 int getWorstAffected(int id_station, int daye)
 {
 	_list *L;
@@ -264,7 +252,6 @@ int getWorstAffected(int id_station, int daye)
 	}
 	return iworst_affected;
 }
-
 _list *AddNodeAtStart(_list *L, int id_person)
 {
 	_list *temp;
@@ -274,7 +261,6 @@ _list *AddNodeAtStart(_list *L, int id_person)
 	L->next = temp;
 	return L;
 }
-
 _list *DeleteNodeById(_list *L, int id_person)
 {
 	_list *start;
@@ -297,7 +283,6 @@ _list *DeleteNodeById(_list *L, int id_person)
 	}
 	return start;
 }
-
 void PrintStatus(int n)
 {
 	printf("%s", status_mapping[n]);
@@ -306,19 +291,16 @@ void PrintStatus(int n)
 */
 /////////////////// Following is the code for the 3-way dijkstra implementation
 #include <limits.h>
-
 #define maxi 1000000000000000
-
 typedef long long int ll;
-
 // A utility function to create
 // a new adjacency list node
 // A utility function that creates
 // a graph of V vertices
 // A utility function to create a
 // new Min Heap Node
-
-struct MinHeapNode *newMinHeapNode(int v,double dist)
+struct MinHeapNode *newMinHeapNode(int v,
+								   double dist)
 {
 	struct MinHeapNode *minHeapNode =
 		(struct MinHeapNode *)
@@ -328,16 +310,18 @@ struct MinHeapNode *newMinHeapNode(int v,double dist)
 	return minHeapNode;
 }
 
-// A utility function to create a Min Heap of size capacity
+// A utility function to create a Min Heap
 struct MinHeap *createMinHeap(int capacity)
 {
-	struct MinHeap *minHeap = (struct MinHeap *)
+	struct MinHeap *minHeap =
+		(struct MinHeap *)
 			malloc(sizeof(struct MinHeap));
 	minHeap->pos = (int *)malloc(
 		capacity * sizeof(int));
 	minHeap->size = 0;
 	minHeap->capacity = capacity;
-	minHeap->array = (struct MinHeapNode **)
+	minHeap->array =
+		(struct MinHeapNode **)
 			malloc(capacity *
 				   sizeof(struct MinHeapNode *));
 	return minHeap;
@@ -347,7 +331,7 @@ struct MinHeap *createMinHeap(int capacity)
 // nodes of min heap.
 // Needed for min heapify
 void swapMinHeapNode(struct MinHeapNode **a,
-				struct MinHeapNode **b)
+					 struct MinHeapNode **b)
 {
 	struct MinHeapNode *t = *a;
 	*a = *b;
@@ -359,7 +343,8 @@ void swapMinHeapNode(struct MinHeapNode **a,
 // This function also updates
 // position of nodes when they are swapped.
 // Position is needed for decreaseKey()
-void minHeapify(struct MinHeap *minHeap, int idx)
+void minHeapify(struct MinHeap *minHeap,
+				int idx)
 {
 	int smallest, left, right;
 	smallest = idx;
@@ -435,7 +420,8 @@ struct MinHeapNode *extractMin(struct MinHeap *
 // of a given vertex v. This function
 // uses pos[] of min heap to get the
 // current index of node in min heap
-void decreaseKey(struct MinHeap *minHeap, int v, double dist)
+void decreaseKey(struct MinHeap *minHeap,
+				 int v, double dist)
 {
 	// Get the index of v in  heap array
 	int i = minHeap->pos[v];
@@ -573,7 +559,6 @@ void add_path_one(_possible_path *possible_routes, double dist[], int src, int t
 	}
 	return;
 }
-
 /// This function would allow us to trace the 2nd best path from src to target
 void add_path_two(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index1, int divert1, int a)
 {
@@ -652,7 +637,6 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 		}
 	}
 }
-
 /// This function would allow us to trace the 3rd best path from src to target
 void add_path_three(_possible_path *possible_routes, double dist[], int src, int target, int parent[], int index3, int divert3)
 {
@@ -832,7 +816,6 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 	}
 	return possible_routes;
 }
-
 //        ASSUMPTION:
 // if someone has to go from say A to B (directly connected)...so the shortest path is the path directly from A to B
 // say A->C->B is the second shortest path
@@ -840,7 +823,6 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 // Hence a path like A->C->D->E->B is also rejected since the shortest path for the person to go from D to B is D->C->B ...Hence the person won't go through this path since he has better options
 
 //////////////////
-
 void add_day_struct(int person_id, int station)
 {
 	day[0].person[person_id].status = 0;		/// 0 means person is negative(that is neither primary nor secondary contact)
