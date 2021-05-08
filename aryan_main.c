@@ -54,6 +54,7 @@ int main(void)
         printf("We are currently at day %d\n\n", cur_day);
         struct __path *temp; // stores the latest path that we get from query 2 to reduce traversal time
         copy_day(cur_day, num_stations, num_person);
+	DayIncrement((cur_day+1)%16, num_person);
         while (1)
         {
             int query;
@@ -269,6 +270,8 @@ int main(void)
 		for(int i = 0; i < no_input_people; i++)
 			scanf("%d", list_no_people + i);
 		Backtrace(cur_day - X + 1, cur_day + 1, list_no_people, no_input_people, num_person, num_stations); 
+		free(list_no_people);
+		//6th day --> day[7];
             }
             else if (query == 3)
             {

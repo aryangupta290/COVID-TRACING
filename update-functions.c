@@ -136,6 +136,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 {
 	for(int i = 0; i < inum_people; i++) {
 		day[start_day].person[list[i]].status = 3;
+		day[start_day].person[list[i]].days = 0;
 		int cur_station = day[start_day].person[list[i]].station;
 		day[start_day].station[cur_station].worst_affected = 3;
 		_list* L;
@@ -150,15 +151,18 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 			L = L->next;
 		}
 	}
+
 	_path *P;
-	for (int i = start_day; i <= end_day; i++)
+	for (int i = start_day; i <= end_day;i++)
 	{
 		P = day[i-1].path;
 		UpdateForDay(P, i);
 		//PrintStationInfo(i,num_stations);
 		PrintQuery1(i,list,inum_people,num_person);
-		copy_day(i,num_stations, num_person); 
-		DayIncrement(i, num_person);
+		if(i >= end_day)
+			break;
+		//copy_day(i,num_stations, num_person); 
+		DayIncrement(i+1, num_person);
 	}
 }
 
