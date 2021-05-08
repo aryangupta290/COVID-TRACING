@@ -76,7 +76,7 @@ int main(void)
                 }
                 else if (temp1->no_of_possible_path == 1)
                 {
-                    printf("There is only one possible path as follows: \n\n");
+                    printf("There is only one possible path as follows: \n");
                     struct __route *temp2 = &(temp1->best_path); // maintains which path the person is eventually gonna decide to go from
                     do
                     {
@@ -84,7 +84,7 @@ int main(void)
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
                     temp2 = &(temp1->best_path);
-                    printf("Destination Reached\n\n");
+                    printf("Destination Reached\n");
                     printf("The corresponding danger value for this path is %lf\n\n", temp1->best_path_danger_value);
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
@@ -116,7 +116,7 @@ int main(void)
                 }
                 else if (temp1->no_of_possible_path == 2)
                 {
-                    printf("There are only two possible path as follows: \n");
+                    printf("There are only two possible path as follows: \n\n");
                     struct __route *temp2 = &(temp1->best_path);
                     do
                     {
@@ -124,16 +124,16 @@ int main(void)
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
                     temp2 = &(temp1->best_path);
-                    printf("Destination Reached\n\n");
-                    printf("The corresponding danger value for this path is %lf\n", temp1->best_path_danger_value);
+                    printf("Destination Reached\n");
+                    printf("The corresponding danger value for this path is %lf\n\n", temp1->best_path_danger_value);
                     temp2 = &(temp1->second_best_path);
                     do
                     {
                         printf("%d -> ", temp2->station_id);
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
-                    printf("Destination Reached\n\n");
-                    printf("The corresponding danger value for this path is %lf\n", temp1->second_best_path_danger_value);
+                    printf("Destination Reached\n");
+                    printf("The corresponding danger value for this path is %lf\n\n", temp1->second_best_path_danger_value);
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
                     printf("Do u want to traverse through this path: ");
@@ -186,8 +186,8 @@ int main(void)
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
                     temp2 = &(temp1->best_path);
-                    printf("Destination Reached\n\n");
-                    printf("The corresponding danger value for this path is %lf\n", temp1->best_path_danger_value);
+                    printf("Destination Reached\n");
+                    printf("The corresponding danger value for this path is %lf\n\n", temp1->best_path_danger_value);
                     temp2 = &(temp1->second_best_path);
                     do
                     {
@@ -195,16 +195,16 @@ int main(void)
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
                     temp2 = &(temp1->second_best_path);
-                    printf("Destination Reached\n\n");
-                    printf("The corresponding danger value for this path is %lf\n", temp1->second_best_path_danger_value);
+                    printf("Destination Reached\n");
+                    printf("The corresponding danger value for this path is %lf\n\n", temp1->second_best_path_danger_value);
                     temp2 = &(temp1->third_best_path);
                     do
                     {
                         printf("%d -> ", temp2->station_id);
                         temp2 = temp2->next_station;
                     } while (temp2 != NULL);
-                    printf("Destination Reached\n\n");
-                    printf("The corresponding danger value for this path is %lf\n", temp1->third_best_path_danger_value);
+                    printf("Destination Reached\n");
+                    printf("The corresponding danger value for this path is %lf\n\n", temp1->third_best_path_danger_value);
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
                     printf("Do u want to traverse through this path: ");
