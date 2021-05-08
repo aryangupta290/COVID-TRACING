@@ -133,6 +133,7 @@ void UpdateForDay(_path *P, int daye);
 void UpdateForPerson(_route *L, int id_person, int daye);
 void Backtrace(int start_day, int end_day, int* list, int inum_people,int num_person, int num_stations);
 void DayIncrement(int daye, int T_ppl);
+void Copy(int curr_day,int T_sta,int T_ppl);
 //void Backtrace(int start_day, int end_day);
 
 /* present in general-functions.c */

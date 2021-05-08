@@ -6,7 +6,7 @@ const char* status_mapping[] = {
 };
 float getDangerIndex(int id_person, int daye)
 {
-	int severity = day[daye].person[id_person].status;
+	int severity = day[daye%16].person[id_person].status;
 	switch(severity) {
 		case 0:
 			return 0;
@@ -25,11 +25,11 @@ float getDangerIndex(int id_person, int daye)
 int getWorstAffected (int id_station, int daye)
 {
 	_list* L;
-	L = day[daye].station[id_station].list;
+	L = day[daye%16].station[id_station].list;
 	int iworst_affected = 0;
 	while(L != NULL) {
-		if(iworst_affected < day[daye].person[L->person_id].status)
-			iworst_affected = day[daye].person[L->person_id].status;
+		if(iworst_affected < day[daye%16].person[L->person_id].status)
+			iworst_affected = day[daye%16].person[L->person_id].status;
 		L = L->next;
 	}
 	return iworst_affected;
@@ -78,7 +78,7 @@ void PrintQuery1(int daye, int* list, int inum_people, int num_person)
 int IsOnList(int daye, int id_person, int* list, int inum_people) 
 {
 	for(int i = 0; i < inum_people; i++) {
-		if(day[daye].person[id_person].cause == list[i])
+		if(day[daye%16].person[id_person].cause == list[i])
 			return 1;
 	}
 	return 0;
@@ -86,7 +86,7 @@ int IsOnList(int daye, int id_person, int* list, int inum_people)
 void PrintPersonStatus(int daye, int id_person)
 {
 	printf("\n");
-	_person* per = &(day[daye].person[id_person]);
+	_person* per = &(day[daye%16].person[id_person]);
 	printf("Person ID is %d\n",id_person);
 	printf("Person cause is %d\n",per->cause);
 	printf("Person is on station %d\n",per->station);
@@ -96,10 +96,10 @@ void PrintPersonStatus(int daye, int id_person)
 void PrintStationDetails(int daye, int id_station)
 {
 	printf("\n");
-	printf("worst affected = %d\n", day[daye].station[id_station].worst_affected);
-	printf("danger value = %lf\n", day[daye].station[id_station].danger_value);
+	printf("worst affected = %d\n", day[daye%16].station[id_station].worst_affected);
+	printf("danger value = %lf\n", day[daye%16].station[id_station].danger_value);
 	_list* L;
-	L = day[daye].station[id_station].list;
+	L = day[daye%16].station[id_station].list;
 	printf("list of people on the station:\n");
 	while(L != NULL) {
 		printf("%d\n", L->person_id);
