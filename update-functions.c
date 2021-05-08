@@ -29,8 +29,8 @@ void UpdateStation(int id_person, int id_station, int daye)
 		day[daye].person[L->person_id].status = day[daye].person[id_person].status - 1;
 		day[daye].person[L->person_id].cause = id_person;
 		day[daye].person[L->person_id].days = 0;
-		L = L->next;
 		day[daye].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
+		L = L->next;
 	}
 	// Changed the status of all people on the station.
 	day[daye].station[id_station].worst_affected = day[daye].person[id_person].status - 1;
@@ -132,13 +132,20 @@ void UpdateForDay(_path *P, int daye)
 	}
 }
 
-void Backtrace(int start_day, int end_day)
+void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_person, int num_stations)
 {
+	for(int i = 0; i < inum_people; i++) {
+		day[start_day].person[list[i]].status = 3;
+		UpdateStation(list[i], day[start_day].person[list[i]].station, start_day);
+	}
 	_path *P;
 	for (int i = start_day; i <= end_day; i++)
 	{
-		P = day[i].path;
+		P = day[i-1].path;
 		UpdateForDay(P, i);
+		PrintQuery1(i,list,inum_people,num_person);
+		copy_day(i,num_stations, num_person); 
+		DayIncrement(i, num_person);
 	}
 }
 

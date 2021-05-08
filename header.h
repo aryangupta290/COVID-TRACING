@@ -131,7 +131,8 @@ void RemovePerson(int id_person, int station_from, int daye);
 void AddPerson(int id_person, int station_to, int daye);
 void UpdateForDay(_path *P, int daye);
 void UpdateForPerson(_route *L, int id_person, int daye);
-void Backtrace(int start_day, int end_day, int* list, int inum_people);
+void Backtrace(int start_day, int end_day, int* list, int inum_people,int num_person, int num_stations);
+void DayIncrement(int daye, int T_ppl);
 //void Backtrace(int start_day, int end_day);
 
 /* present in general-functions.c */
@@ -140,6 +141,9 @@ int getWorstAffected(int id_station, int daye);
 _list *DeleteNodeById(_list *L, int id_person);
 _list *AddNodeAtStart(_list *L, int id_person);
 void PrintStatus(int n);
+void PrintPersonStatus(int daye, int id_person);
+int IsOnList(int daye, int id_person, int* list, int inum_people);
+void PrintQuery1(int daye, int* list, int inum_people,int num_person);
 
 //// Used in main.c
 void copy_day(int cur_day, int num_statoins, int num_person);

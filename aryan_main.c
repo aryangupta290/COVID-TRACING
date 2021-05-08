@@ -7,8 +7,8 @@
 int main(void)
 {
     //initial basic input
-    system("clear");
     int num_stations, num_roads, num_person;
+    system("clear");
     
     printf("Give the no of stations,no of roads,no of people: ");
     scanf("%d %d %d", &num_stations, &num_roads, &num_person);
@@ -316,7 +316,8 @@ int main(void)
 		printf("Enter the list of positive people");
 		for(int i = 0; i < no_input_people; i++) 
 			scanf("%d", list_input_people + i);
-		Backtrace(cur_day - X + 1, cur_day + 1, list_input_people, no_input_people);
+		Backtrace(cur_day - X + 1, cur_day + 1, list_input_people, no_input_people, num_person, num_stations);
+		free(list_input_people);
             }
             
             
@@ -358,7 +359,7 @@ int main(void)
             {
                 cur_day++;
 		copy_day(cur_day, num_stations, num_person);
-		dayIncrement(cur_day, num_person);
+		DayIncrement(cur_day, num_person);
                 break;
             }
             else if (query == -1)
