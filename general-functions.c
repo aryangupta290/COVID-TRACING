@@ -67,6 +67,7 @@ void PrintStatus(int n)
 }
 void PrintQuery1(int daye, int* list, int inum_people, int num_person)
 {
+	printf("For day %d:\n",daye);
 	for(int id_person = 0; id_person < num_person; id_person++) {
 		if(IsOnList(daye, id_person, list, inum_people)) 
 			PrintPersonStatus(daye, id_person);
@@ -87,6 +88,25 @@ void PrintPersonStatus(int daye, int id_person)
 	printf("Person ID is %d\n",id_person);
 	printf("Person cause is %d\n",per->cause);
 	printf("Person is on station %d\n",per->station);
-	printf("Person status is ");
+	printf("Person status is %d, which corresponds to ",per->status);
 	PrintStatus(per->status);
+}
+void PrintStationDetails(int daye, int id_station)
+{
+	printf("\n");
+	printf("worst affected = %d\n", day[daye].station[id_station].worst_affected);
+	printf("danger value = %lf\n", day[daye].station[id_station].danger_value);
+	_list* L;
+	L = day[daye].station[id_station].list;
+	printf("list of people on the station:\n");
+	while(L != NULL) {
+		printf("%d\n", L->person_id);
+		L = L->next;
+	}
+}
+void PrintStationInfo(int daye, int num_stations) 
+{
+	for(int id_station = 0; id_station < num_stations; id_station++) {
+		PrintStationDetails(daye, id_station);
+	}
 }

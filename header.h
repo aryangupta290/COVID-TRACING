@@ -144,6 +144,8 @@ void PrintStatus(int n);
 void PrintPersonStatus(int daye, int id_person);
 int IsOnList(int daye, int id_person, int* list, int inum_people);
 void PrintQuery1(int daye, int* list, int inum_people,int num_person);
+void PrintStationInfo(int daye, int num_stations);
+void PrintStationDetails(int daye, int id_station);
 
 //// Used in main.c
 void copy_day(int cur_day, int num_statoins, int num_person);

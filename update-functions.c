@@ -136,13 +136,26 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 {
 	for(int i = 0; i < inum_people; i++) {
 		day[start_day].person[list[i]].status = 3;
-		UpdateStation(list[i], day[start_day].person[list[i]].station, start_day);
+		int cur_station = day[start_day].person[list[i]].station;
+		day[start_day].station[cur_station].worst_affected = 3;
+		_list* L;
+		L = day[start_day].station[cur_station].list;
+		while(L != NULL) {
+			if(day[start_day].person[L->person_id].status != 3) {
+				day[start_day].person[L->person_id].status = 2;
+				day[start_day].person[L->person_id].cause = list[i];
+				day[start_day].person[L->person_id].days = 0;
+				day[start_day].station[cur_station].danger_value += 0.2;
+			}
+			L = L->next;
+		}
 	}
 	_path *P;
 	for (int i = start_day; i <= end_day; i++)
 	{
 		P = day[i-1].path;
 		UpdateForDay(P, i);
+		PrintStationInfo(i,num_stations);
 		PrintQuery1(i,list,inum_people,num_person);
 		copy_day(i,num_stations, num_person); 
 		DayIncrement(i, num_person);
