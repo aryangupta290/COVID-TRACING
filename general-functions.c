@@ -63,5 +63,30 @@ _list* DeleteNodeById(_list* L, int id_person)
 }
 void PrintStatus(int n)
 {
-	printf("%s",status_mapping[n]);
+	printf("%s\n",status_mapping[n]);
+}
+void PrintQuery1(int daye, int* list, int inum_people, int num_person)
+{
+	for(int id_person = 0; id_person < num_person; id_person++) {
+		if(IsOnList(daye, id_person, list, inum_people)) 
+			PrintPersonStatus(daye, id_person);
+	}
+}
+int IsOnList(int daye, int id_person, int* list, int inum_people) 
+{
+	for(int i = 0; i < inum_people; i++) {
+		if(day[daye].person[id_person].cause == list[i])
+			return 1;
+	}
+	return 0;
+}
+void PrintPersonStatus(int daye, int id_person)
+{
+	printf("\n");
+	_person* per = &(day[daye].person[id_person]);
+	printf("Person ID is %d\n",id_person);
+	printf("Person cause is %d\n",per->cause);
+	printf("Person is on station %d\n",per->station);
+	printf("Person status is ");
+	PrintStatus(per->status);
 }
