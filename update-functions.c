@@ -3,7 +3,7 @@
 #include <stdio.h>
 void UpdateData(int id_person, int id_station, int daye)
 {
-	if (day[daye].person[id_person].status >= 2 || day[daye].station[id_station].worst_affected >= 2)
+	if (day[daye].person[id_person].status = 2 || day[daye].station[id_station].worst_affected = 2 || day[daye].person[id_person].status = 3 || day[daye].station[id_station].worst_affected = 3)
 	{
 		if (day[daye].person[id_person].status > day[daye].station[id_station].worst_affected)
 		{
@@ -26,11 +26,13 @@ void UpdateStation(int id_person, int id_station, int daye)
 	L = day[daye].station[id_station].list;
 	while (L != NULL)
 	{
-		day[daye].person[L->person_id].status = day[daye].person[id_person].status - 1;
-		day[daye].person[L->person_id].cause = id_person;
-		day[daye].person[L->person_id].days = 0;
-		day[daye].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
-		L = L->next;
+		if(day[daye].person[L->person_id].status != 4) {
+			day[daye].person[L->person_id].status = day[daye].person[id_person].status - 1;
+			day[daye].person[L->person_id].cause = id_person;
+			day[daye].person[L->person_id].days = 0;
+			day[daye].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
+			L = L->next;
+		}
 	}
 	// Changed the status of all people on the station.
 	day[daye].station[id_station].worst_affected = day[daye].person[id_person].status - 1;
@@ -109,7 +111,6 @@ void AddPerson(int id_person, int station_to, int daye)
 * given that a list of people were covid positive since a particular day, we must look at all the travels made by peole on each day.
 * for one day, we have to traverse the path linked list of linked lists and and update the values accordingly and print the results
 */
-
 void UpdateForPerson(_route *L, int id_person, int daye)
 {
 	int station_from = L->station_id;
@@ -172,6 +173,9 @@ void DayIncrement(int daye, int T_ppl)
 	for (int i = 0; i < T_ppl; i++)
 	{
 		// if person is covid +ve increase his no. of days affected
+		if(day[daye].person[i].status == 4) {
+			day[daye].person[i].days++;
+		}
 		if (day[daye].person[i].status == 3)
 		{
 			day[daye].person[i].days++;
