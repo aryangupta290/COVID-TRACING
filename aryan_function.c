@@ -764,7 +764,7 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 		add_path_two(possible_routes, dist, src, target, parent, index1, divert1, 1);
 	}
 	// Code for the third shortest path
-	double min3 = INT_MAX;
+	double min3 = maxi;
 	int index3 = -1, divert3 = -1;
 	// min3 stores danger value of a possible contender for 3rd shortest path
 	// index3 stores at which node we diverted
