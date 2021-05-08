@@ -3,11 +3,7 @@
 #include <stdio.h>
 void UpdateData(int id_person, int id_station, int daye)
 {
-<<<<<<< HEAD
-	if (day[daye%16].person[id_person].status >= 2 || day[daye%16].station[id_station].worst_affected >= 2)
-=======
-	if (day[daye].person[id_person].status = 2 || day[daye].station[id_station].worst_affected = 2 || day[daye].person[id_person].status = 3 || day[daye].station[id_station].worst_affected = 3)
->>>>>>> 9e91686d86258267524649e2606ca265a1631e9f
+	if (day[daye%16].person[id_person].status = 2 || day[daye%16].station[id_station].worst_affected = 2 || day[daye%16].person[id_person].status = 3 || day[daye%16].station[id_station].worst_affected = 3)
 	{
 		if (day[daye%16].person[id_person].status > day[daye%16].station[id_station].worst_affected)
 		{
@@ -30,21 +26,13 @@ void UpdateStation(int id_person, int id_station, int daye)
 	L = day[daye%16].station[id_station].list;
 	while (L != NULL)
 	{
-<<<<<<< HEAD
-		day[daye%16].person[L->person_id].status = day[daye%16].person[id_person].status - 1;
-		day[daye%16].person[L->person_id].cause = id_person;
-		day[daye%16].person[L->person_id].days = 0;
-		day[daye%16].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
-		L = L->next;
-=======
-		if(day[daye].person[L->person_id].status != 4) {
-			day[daye].person[L->person_id].status = day[daye].person[id_person].status - 1;
-			day[daye].person[L->person_id].cause = id_person;
-			day[daye].person[L->person_id].days = 0;
-			day[daye].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
+		if(day[daye%16].person[L->person_id].status != 4) {
+			day[daye%16].person[L->person_id].status = day[daye%16].person[id_person].status - 1;
+			day[daye%16].person[L->person_id].cause = id_person;
+			day[daye%16].person[L->person_id].days = 0;
+			day[daye%16].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
 			L = L->next;
 		}
->>>>>>> 9e91686d86258267524649e2606ca265a1631e9f
 	}
 	// Changed the status of all people on the station.
 	day[daye%16].station[id_station].worst_affected = day[daye%16].person[id_person].status - 1;
@@ -185,14 +173,10 @@ void DayIncrement(int daye, int T_ppl)
 	for (int i = 0; i < T_ppl; i++)
 	{
 		// if person is covid +ve increase his no. of days affected
-<<<<<<< HEAD
-		if (day[daye%16].person[i].status == 3)
-=======
-		if(day[daye].person[i].status == 4) {
-			day[daye].person[i].days++;
+		if(day[daye%16].person[i].status == 4) {
+			day[daye%16].person[i].days++;
 		}
-		if (day[daye].person[i].status == 3)
->>>>>>> 9e91686d86258267524649e2606ca265a1631e9f
+		if (day[daye%16].person[i].status == 3)
 		{
 			day[daye%16].person[i].days++;
 		}
