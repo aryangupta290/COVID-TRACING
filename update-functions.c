@@ -155,7 +155,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 	{
 		P = day[i-1].path;
 		UpdateForDay(P, i);
-		PrintStationInfo(i,num_stations);
+		//PrintStationInfo(i,num_stations);
 		PrintQuery1(i,list,inum_people,num_person);
 		copy_day(i,num_stations, num_person); 
 		DayIncrement(i, num_person);
