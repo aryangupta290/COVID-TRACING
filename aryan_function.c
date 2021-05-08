@@ -520,7 +520,7 @@ void dijkstra(struct Graph *graph, int src, double dist[], int curr_day, int par
 			// not finalized yet, and distance to v
 			// through u is less than its
 			// previously calculated distance
-			if (isInMinHeap(minHeap, v) && dist[u] != maxi && dist[u] + day[cur_day + 1].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight <= dist[v]) //day[curr_day + 1].station[temp->station_id].danger_value;
+			if (isInMinHeap(minHeap, v) && dist[u] != maxi && dist[u] + day[cur_day + 1].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight < dist[v]) //day[curr_day + 1].station[temp->station_id].danger_value;
 			{
 
 				dist[v] = dist[u] + day[cur_day + 1].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight; //day[curr_day + 1].station[temp->station_id].danger_value;

@@ -113,6 +113,8 @@ int main(void)
                             UpdateForPerson(temp2, person_id, (cur_day + 1) % 16);
                         }
                     }
+                    else
+                        continue;
                 }
                 else if (temp1->no_of_possible_path == 2)
                 {
@@ -290,7 +292,7 @@ int main(void)
             }
             else if (query == 5)
             {
-                cur_day++;
+                cur_day=(cur_day+1)%16;
                 break;
             }
             else if (query == -1)
