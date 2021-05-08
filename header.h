@@ -46,7 +46,7 @@ struct __day
 	struct __station *station;
 }; // we maintain the status of the all the stations and persons for 15 days
 /* Uncomment the following line to test with arbitrary day array */
-struct __day day[15];
+struct __day day[16];
 
 typedef struct __day _day;
 typedef struct __person _person;
