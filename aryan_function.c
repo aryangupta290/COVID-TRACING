@@ -520,10 +520,10 @@ void dijkstra(struct Graph *graph, int src, double dist[], int curr_day, int par
 			// not finalized yet, and distance to v
 			// through u is less than its
 			// previously calculated distance
-			if (isInMinHeap(minHeap, v) && dist[u] != maxi && dist[u] + day[cur_day + 1].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight < dist[v]) //day[curr_day + 1].station[temp->station_id].danger_value;
+			if (isInMinHeap(minHeap, v) && dist[u] != maxi && dist[u] + day[(cur_day + 1) % 16].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight < dist[v]) //day[curr_day + 1].station[temp->station_id].danger_value;
 			{
 
-				dist[v] = dist[u] + day[cur_day + 1].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight; //day[curr_day + 1].station[temp->station_id].danger_value;
+				dist[v] = dist[u] + day[(cur_day + 1) % 16].station[pCrawl->dest].danger_value * 100000 + pCrawl->weight; //day[curr_day + 1].station[temp->station_id].danger_value;
 				parent[v] = u;
 				// update distance
 				// value in min heap also
@@ -546,14 +546,14 @@ void add_path_one(_possible_path *possible_routes, double dist[], int src, int t
 	temp->station_id = src;
 	temp->next_station = NULL;
 	double *temp1 = &(possible_routes->best_path_danger_value);
-	*temp1 = day[cur_day + 1].station[src].danger_value;
+	*temp1 = day[(cur_day + 1) % 16].station[src].danger_value;
 	int start = src;
 	while (start != target)
 	{
 		temp->next_station = (struct __route *)malloc(sizeof(struct __route));
 		temp = temp->next_station;
 		temp->station_id = parent[start];
-		*temp1 += day[cur_day + 1].station[parent[start]].danger_value;
+		*temp1 += day[(cur_day + 1) % 16].station[parent[start]].danger_value;
 		temp->next_station = NULL;
 		start = parent[start];
 	}
@@ -578,7 +578,7 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 	}
 	temp->station_id = src;
 	temp->next_station = NULL;
-	*temp1 += day[cur_day + 1].station[src].danger_value;
+	*temp1 += day[(cur_day + 1) % 16].station[src].danger_value;
 	int start = src;
 	if (index1 == start)
 	{
@@ -587,7 +587,7 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 		temp = temp->next_station;
 		temp->station_id = divert1;
 		temp->next_station = NULL;
-		*temp1 += day[cur_day + 1].station[divert1].danger_value;
+		*temp1 += day[(cur_day + 1) % 16].station[divert1].danger_value;
 		if (divert1 != target)
 		{
 			start = divert1;
@@ -596,7 +596,7 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 				temp->next_station = (struct __route *)malloc(sizeof(struct __route));
 				temp = temp->next_station;
 				temp->station_id = parent[start];
-				*temp1 += day[cur_day + 1].station[parent[start]].danger_value;
+				*temp1 += day[(cur_day + 1) % 16].station[parent[start]].danger_value;
 				temp->next_station = NULL;
 				start = parent[start];
 			}
@@ -611,14 +611,14 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 			temp->next_station = (struct __route *)malloc(sizeof(struct __route));
 			temp = temp->next_station;
 			temp->station_id = parent[start];
-			*temp1 += day[cur_day + 1].station[parent[start]].danger_value;
+			*temp1 += day[(cur_day + 1) % 16].station[parent[start]].danger_value;
 			temp->next_station = NULL;
 			start = parent[start];
 		}
 		temp->next_station = (struct __route *)malloc(sizeof(struct __route));
 		temp = temp->next_station;
 		temp->station_id = divert1;
-		*temp1 += day[cur_day + 1].station[divert1].danger_value;
+		*temp1 += day[(cur_day + 1) % 16].station[divert1].danger_value;
 		temp->next_station = NULL;
 		start = divert1;
 		if (start != target)
@@ -629,7 +629,7 @@ void add_path_two(_possible_path *possible_routes, double dist[], int src, int t
 				temp->next_station = (struct __route *)malloc(sizeof(struct __route));
 				temp = temp->next_station;
 				temp->station_id = parent[start];
-				*temp1 += day[cur_day + 1].station[parent[start]].danger_value;
+				*temp1 += day[(cur_day + 1) % 16].station[parent[start]].danger_value;
 				temp->next_station = NULL;
 				start = parent[start];
 			}
@@ -647,7 +647,7 @@ void add_path_three(_possible_path *possible_routes, double dist[], int src, int
 	temp2->station_id = src;
 	double *temp3;
 	temp3 = &(possible_routes->third_best_path_danger_value);
-	*temp3 += day[cur_day + 1].station[temp2->station_id].danger_value;
+	*temp3 += day[(cur_day + 1) % 16].station[temp2->station_id].danger_value;
 	temp2->next_station = NULL;
 	int start = src;
 	while (start != index3)
@@ -657,13 +657,13 @@ void add_path_three(_possible_path *possible_routes, double dist[], int src, int
 		temp2->station_id = temp1->station_id;
 		temp2->next_station = NULL;
 		start = temp1->station_id;
-		*temp3 += day[cur_day + 1].station[start].danger_value;
+		*temp3 += day[(cur_day + 1) % 16].station[start].danger_value;
 		temp1 = temp1->next_station;
 	}
 	temp2->next_station = (struct __route *)malloc(sizeof(struct __route));
 	temp2 = temp2->next_station;
 	temp2->station_id = divert3;
-	*temp3 += day[cur_day + 1].station[divert3].danger_value;
+	*temp3 += day[(cur_day + 1) % 16].station[divert3].danger_value;
 	temp2->next_station = NULL;
 	start = divert3;
 	while (start != target)
@@ -671,7 +671,7 @@ void add_path_three(_possible_path *possible_routes, double dist[], int src, int
 		temp2->next_station = (struct __route *)malloc(sizeof(struct __route));
 		temp2 = temp2->next_station;
 		temp2->station_id = parent[start];
-		*temp3 += day[cur_day + 1].station[parent[start]].danger_value;
+		*temp3 += day[(cur_day + 1) % 16].station[parent[start]].danger_value;
 		temp2->next_station = NULL;
 		start = parent[start];
 	}
@@ -717,19 +717,19 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 				pCrawl = pCrawl->next;
 				continue;
 			}
-			if (dist[src] - dist[temp->station_id] + day[cur_day + 1].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest] <= min1)
+			if (dist[src] - dist[temp->station_id] + day[(cur_day + 1) % 16].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest] <= min1)
 			{
 				min2 = min1;
 				index2 = index1;
 				divert2 = divert1;
-				min1 = dist[src] - dist[temp->station_id] + day[cur_day + 1].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest];
+				min1 = dist[src] - dist[temp->station_id] + day[(cur_day + 1) % 16].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest];
 				index1 = temp->station_id;
 				divert1 = pCrawl->dest;
-				weight = dist[src] - dist[temp->station_id] + 100000 * (day[cur_day + 1].station[temp->station_id].danger_value) + pCrawl->weight;
+				weight = dist[src] - dist[temp->station_id] + 100000 * (day[(cur_day + 1) % 16].station[temp->station_id].danger_value) + pCrawl->weight;
 			}
-			else if (dist[src] - dist[temp->station_id] + (day[cur_day + 1].station[temp->station_id].danger_value) * 100000 + pCrawl->weight + dist[pCrawl->dest] < min2)
+			else if (dist[src] - dist[temp->station_id] + (day[(cur_day + 1) % 16].station[temp->station_id].danger_value) * 100000 + pCrawl->weight + dist[pCrawl->dest] < min2)
 			{
-				min2 = dist[src] - dist[temp->station_id] + day[cur_day + 1].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest];
+				min2 = dist[src] - dist[temp->station_id] + day[(cur_day + 1) % 16].station[temp->station_id].danger_value * 100000 + pCrawl->weight + dist[pCrawl->dest];
 				index2 = temp->station_id;
 				divert2 = pCrawl->dest;
 			}
@@ -780,9 +780,9 @@ _possible_path *three_way_dijkstra_implementation(struct Graph *graph, int src, 
 				pCrawl = pCrawl->next;
 				continue;
 			}
-			if (weight + dist[divert1] - dist[temp2->station_id] + 100000 * day[cur_day + 1].station[temp2->station_id].danger_value + pCrawl->weight + dist[pCrawl->dest] < min3)
+			if (weight + dist[divert1] - dist[temp2->station_id] + 100000 * day[(cur_day + 1) % 16].station[temp2->station_id].danger_value + pCrawl->weight + dist[pCrawl->dest] < min3)
 			{
-				min3 = weight + dist[divert1] - dist[temp2->station_id] + 100000 * day[cur_day + 1].station[temp2->station_id].danger_value + pCrawl->weight + dist[pCrawl->dest];
+				min3 = weight + dist[divert1] - dist[temp2->station_id] + 100000 * day[(cur_day + 1) % 16].station[temp2->station_id].danger_value + pCrawl->weight + dist[pCrawl->dest];
 				index3 = temp2->station_id;
 				divert3 = pCrawl->dest;
 			}
@@ -851,27 +851,27 @@ void copy_day(int cur_day, int num_stations, int num_person)
 
 	for (int i = 0; i < num_stations; i++)
 	{
-		day[(cur_day + 1) % 16].station[i].worst_affected = day[cur_day].station[i].worst_affected;
+		day[(cur_day + 1) % 16].station[i].worst_affected = day[(cur_day) % 16].station[i].worst_affected;
 		day[(cur_day + 1) % 16].station[i].list = NULL;
-		day[(cur_day + 1) % 16].station[i].danger_value = day[cur_day].station[i].danger_value;
+		day[(cur_day + 1) % 16].station[i].danger_value = day[(cur_day) % 16].station[i].danger_value;
 	}
 	for (int i = 0; i < num_person; i++)
 	{
-		day[(cur_day + 1) % 16].person[i].status = day[cur_day].person[i].status;
-		day[(cur_day + 1) % 16].person[i].days = day[cur_day].person[i].days;
-		day[(cur_day + 1) % 16].person[i].cause = day[cur_day].person[i].cause;
-		day[(cur_day + 1) % 16].person[i].station = day[cur_day].person[i].station;
+		day[(cur_day + 1) % 16].person[i].status = day[(cur_day) % 16].person[i].status;
+		day[(cur_day + 1) % 16].person[i].days = day[(cur_day) % 16].person[i].days;
+		day[(cur_day + 1) % 16].person[i].cause = day[(cur_day) % 16].person[i].cause;
+		day[(cur_day + 1) % 16].person[i].station = day[(cur_day) % 16].person[i].station;
 		struct __list *temp5 = (struct __list *)malloc(sizeof(struct __list));
 		temp5->person_id = i;
 		temp5->next = NULL;
-		if (day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list == NULL)
+		if (day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list == NULL)
 		{
-			day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list = temp5;
+			day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list = temp5;
 		}
 		else
 		{
-			temp5->next = day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list;
-			day[(cur_day + 1) % 16].station[day[cur_day].person[i].station].list = temp5;
+			temp5->next = day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list;
+			day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list = temp5;
 		}
 	}
 };

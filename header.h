@@ -27,7 +27,7 @@ struct __person
 
 struct __station
 {
-	int worst_affected;	 //indicates the status of the worst affected person on the station///0=negative,1-seconday///2-primary///3-covid///
+	int worst_affected;	 //indicates the status of the worst affected person on the station///0=negative,1-seconday///2-primary///3-covid///4-quarentined
 	struct __list *list; // linked list of all the people on the station
 	float danger_value;
 };

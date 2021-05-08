@@ -26,10 +26,10 @@ We can perform four queries
 
 a)  : Entering (1) would mean query 1 which is that given the list of covid positive people on some day,we backtrack the last D days and print the list of people who got infected due to those peoples (basically printing list of all people who became primary or secondary contact due to those people) .
 
-Input instruction:
+Input instructions:
 
-
-//// to be filled
+first enter the number of people on the list, followed by the value of X. Then give a list of all the people who are declared to be covid positive
+The output will be a list of all the primary and secondary contacts of the list L on each day
 
 b)  : Entering (2) would mean query no 2 which is that given a person id and the station to where he wants to go ,we would give him the three(if possible) most optimal paths for doing this and then he would have the option to decide if he wants to traverse through this path.
 
@@ -68,7 +68,6 @@ Assumptions:
 2) For the 3-way shortest path we won't consider any path if it has a 2-way cycle although cycles of length greater than 2 would be considered.
 
 3) Also say from some node A , the shortest path to say B involves going through C such that it involves a 2-way cycle ,then also we won't consider that path.
-
 
 
 

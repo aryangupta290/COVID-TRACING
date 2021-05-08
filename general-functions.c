@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 const char* status_mapping[] = {
-	"negative", "secondary_contact", "primary_contact", "positive"
+	"negative", "secondary_contact", "primary_contact", "positive", "quarentined"
 };
 float getDangerIndex(int id_person, int daye)
 {
@@ -16,6 +16,8 @@ float getDangerIndex(int id_person, int daye)
 			return 0.2;
 		case 3: 
 			return 0;
+		case 4: 
+			return 0;
 		default:
 		fprintf(stderr, "Error, status out of specified range\n");
 		return 0;
@@ -28,8 +30,10 @@ int getWorstAffected (int id_station, int daye)
 	L = day[daye%16].station[id_station].list;
 	int iworst_affected = 0;
 	while(L != NULL) {
-		if(iworst_affected < day[daye%16].person[L->person_id].status)
+
+		if(iworst_affected < day[daye%16].person[L->person_id].status && day[daye%16].person[L->person_id].status != 4)
 			iworst_affected = day[daye%16].person[L->person_id].status;
+
 		L = L->next;
 	}
 	return iworst_affected;
