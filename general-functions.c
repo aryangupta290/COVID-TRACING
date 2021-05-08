@@ -15,11 +15,12 @@ float getDangerIndex(int id_person, int daye)
 		case 2:
 			return 0.2;
 		case 3: 
-			return 1;
+			return 0;
 		default:
 		fprintf(stderr, "Error, status out of specified range\n");
 		return 0;
 	}
+	//case 3: covid +ve person contributes 1 to the danger value but since it doesn't affect anything according to our assumptions we take the danger value to be 0
 }
 int getWorstAffected (int id_station, int daye)
 {
@@ -58,6 +59,7 @@ _list* DeleteNodeById(_list* L, int id_person)
 			free(L->next);
 			L->next = temp;
 		}
+		L = L->next;
 	}
 	return start; 
 }
