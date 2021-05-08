@@ -261,7 +261,14 @@ int main(void)
                 int no_input_people;
                 printf("How many people are covid positive ");
                 scanf("%d", &no_input_people);
-                int temp[no_input_people];
+		printf("Enter value of X: ");
+		int X; scanf("%d",&X);
+		int* list_no_people;
+		list_no_people = (int*)calloc(no_input_people,sizeof(int));
+		printf("Enter list of all covid positive people: ");
+		for(int i = 0; i < no_input_people; i++)
+			scanf("%d", list_no_people + i);
+		Backtrace(cur_day - X + 1, cur_day + 1, list_no_people, no_input_people, num_person, num_stations); 
             }
             else if (query == 3)
             {
