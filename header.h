@@ -131,7 +131,8 @@ void RemovePerson(int id_person, int station_from, int daye);
 void AddPerson(int id_person, int station_to, int daye);
 void UpdateForDay(_path *P, int daye);
 void UpdateForPerson(_route *L, int id_person, int daye);
-void Backtrace(int start_day, int end_day);
+void Backtrace(int start_day, int end_day, int* list, int inum_people);
+//void Backtrace(int start_day, int end_day);
 
 /* present in general-functions.c */
 float getDangerIndex(int id_person, int daye);

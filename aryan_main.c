@@ -256,12 +256,12 @@ int main(void)
                     
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
-                    printf("Do u want to traverse through this path: ");
+                    printf("Do u want to traverse through this path(1 for yes, 0 for no): ");
                     scanf("%d", &may_accept);
                     
                     if (may_accept)
                     {
-                        printf("Which path do u want to go through: ");
+                        printf("Which path do u want to go through(choose path number 1 or 2 or 3): ");
                         int which_path; // either 1 or 2 or 3
                         scanf("%d", &which_path);
                         
@@ -309,8 +309,14 @@ int main(void)
                 int no_input_people;
                 printf("How many people are covid positive ");
                 scanf("%d", &no_input_people);
-                
-                int temp[no_input_people];
+		int* list_input_people;
+		list_input_people = (int*)calloc(no_input_people,sizeof(int));
+		printf("Enter the value of X");
+		int X; scanf("%d",&X);
+		printf("Enter the list of positive people");
+		for(int i = 0; i < no_input_people; i++) 
+			scanf("%d", list_input_people + i);
+		Backtrace(cur_day - X + 1, cur_day + 1, list_input_people, no_input_people);
             }
             
             
@@ -332,7 +338,7 @@ int main(void)
             
             else if (query == 4)
             {
-                printf("GIve the station no whose details u want to print: ");
+                printf("Give the station no whose details u want to print: ");
                 int temp1;
                 
                 scanf("%d", &temp1);
@@ -351,11 +357,13 @@ int main(void)
             else if (query == 5)
             {
                 cur_day++;
+		copy_day(cur_day, num_stations, num_person);
+		dayIncrement(cur_day, num_person);
                 break;
             }
             else if (query == -1)
             {
-                printf("\nTerminating the Program")
+                printf("\nTerminating the Program");
                 exit(0);
             }
         }
