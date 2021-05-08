@@ -69,7 +69,7 @@ int main(void)
                 scanf("%d %d", &from_where, &to_where);
                 printf("\n");
                 _possible_path *temp1 = (_possible_path *)malloc(sizeof(_possible_path)); ///// TEMP1 points to possible routes
-                temp1 = three_way_dijkstra_implementation(graph, from_where, to_where, cur_day);
+                temp1 = three_way_dijkstra_implementation(graph, from_where, to_where, (cur_day)%16);
                 if (temp1->no_of_possible_path == 0)
                 {
                     printf("There are no possible paths from %d to %d\n\n", from_where, to_where);
@@ -300,7 +300,7 @@ int main(void)
             }
             else if (query == 5)
             {
-                cur_day =cur_day + 1;
+                cur_day = cur_day + 1;
                 break;
             }
             else if (query == -1)
