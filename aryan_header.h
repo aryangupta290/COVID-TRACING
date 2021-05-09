@@ -114,11 +114,6 @@ struct MinHeap
 };
 /////
 
-struct AdjListNode *newAdjListNode(int dest, int weight);		  //Create a node, util function
-struct Graph *createGraph(int V);								  //Creates a graph of N vertices
-void addEdge(struct Graph *graph, int src, int dest, int weight); //Adds an edge of length w between s and d
-void print_Graph(struct Graph *);								  // prints the Graph, for testing
-
 /***** IMPLEMENTED ******/
 /* present in update-functions.c */
 void UpdateData(int id_person, int id_station, int daye);
