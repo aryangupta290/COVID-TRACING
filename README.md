@@ -9,7 +9,7 @@ Compilation instruction: Use  gcc aryan_main.c  aryan_function.c general-functio
 
 a) For status -> 0 denotes normal person,1 denotes secondary contact,2 denotes primary contact , 3 denotes covid positive person 
 
-b) We would condiser query 1 only at the end of the day.That is after query 1,we will have to move to the next day.
+
 
 How to run test cases:
 
@@ -56,6 +56,7 @@ f)   : Entering (-1) would exit us from the program
 
 Also if we give query 1,then after we process it,we would directly go to the next day,and so there is no need to input 5 again to end the day(as the day is automatically ended).
 
+
 ////////////
 
 
@@ -68,6 +69,14 @@ Assumptions:
 2) For the 3-way shortest path we won't consider any path if it has a 2-way cycle although cycles of length greater than 2 would be considered.
 
 3) Also say from some node A , the shortest path to say B involves going through C such that it involves a 2-way cycle ,then also we won't consider that path.
+
+4) At each day we assume that we are provided with only one list(query 1) that comprises of all the person  found to be covid positive at the end of the day that is as soon as query 1 is provided ,we assume that no more people will travel on that day.
+
+5) While backracking , given value of X ,we assume that the given list of people have been covid positive for the past X days.So that means that we have considered the given list of people since the beginning of day D-X.
+
+6) We assume that after 14 days,the person is not affected any more.
+
+7) If there are more than one say primary contact and a person becomes secondary contact due to them ,then we randomly considr any one of the primary contacts as cause for the secondary contact of the new person who arrived.
 
 
 
