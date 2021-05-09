@@ -3,7 +3,7 @@
 #include <stdio.h>
 void UpdateData(int id_person, int id_station, int daye)
 {
-	if (day[daye%16].person[id_person].status = 2 || day[daye%16].station[id_station].worst_affected = 2 || day[daye%16].person[id_person].status = 3 || day[daye%16].station[id_station].worst_affected = 3)
+	if (day[daye%16].person[id_person].status == 2 || day[daye%16].station[id_station].worst_affected == 2 || day[daye%16].person[id_person].status == 3 || day[daye%16].station[id_station].worst_affected == 3)
 	{
 		if (day[daye%16].person[id_person].status > day[daye%16].station[id_station].worst_affected)
 		{

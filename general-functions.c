@@ -49,23 +49,46 @@ _list* AddNodeAtStart(_list* L, int id_person)
 }
 _list* DeleteNodeById(_list* L, int id_person)
 {
-	_list* start;
+	/* /_list* start;
+	   start = L;
+	   _list* temp;
+	   if(L->person_id == id_person) {
+	   temp = L->next;
+	   free(L);
+	   return temp;
+	   }
+	   while(start->next != NULL) {
+	   if(start->next->person_id == id_person){
+	   temp = start->next;
+	   start = start->next->next;
+	   free(temp);
+	   return L;
+	   }
+	   start = start->next;
+	   }
+	   return start; 
+	   */
+	_list *start;
 	start = L;
-	_list* temp;
-	if(L->person_id == id_person) {
+	_list *temp;
+	if (L->person_id == id_person)
+	{
 		temp = L->next;
 		free(L);
 		return temp;
 	}
-	while(L->next != NULL) {
-		if(L->person_id == id_person){
-			temp = L->next->next;
-			free(L->next);
-			L->next = temp;
+	while (start->next != NULL)
+	{
+		if (start->next->person_id == id_person)
+		{
+			temp = start->next->next;
+			free(start->next);
+			start->next=temp;
+			return L;
 		}
-		L = L->next;
+		start = start->next;
 	}
-	return start; 
+	return start;
 }
 void PrintStatus(int n)
 {
