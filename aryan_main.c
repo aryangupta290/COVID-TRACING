@@ -65,9 +65,17 @@ int main(void)
                 int person_id;
                 printf("Give the person's id who wants to travel: ");
                 scanf("%d", &person_id);
+		if(day[(cur_day + 1) %16].person[person_id].status == 4) {
+			fprintf(stderr, "quarentined person cannot move");
+			break;
+		}
                 int from_where, to_where;
                 printf("Give the id of the source and target stations: ");
                 scanf("%d %d", &from_where, &to_where);
+		if(day[(cur_day + 1)%16].person[person_id].station != from_where) {
+			fprintf(stderr, "Person not present on current station");
+			break;
+		}
                 printf("\n");
                 _possible_path *temp1 = (_possible_path *)malloc(sizeof(_possible_path)); ///// TEMP1 points to possible routes
                 temp1 = three_way_dijkstra_implementation(graph, from_where, to_where, (cur_day)%16);
