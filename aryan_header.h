@@ -23,8 +23,6 @@ struct __person
 	int station; // id of the station
 };
 
-#define DAY_MAX 15
-
 struct __station
 {
 	int worst_affected;	 //indicates the status of the worst affected person on the station///0=negative,1-seconday///2-primary///3-covid///
@@ -161,14 +159,5 @@ void addEdge(struct Graph *graph, int src, int dest, int weight);
 struct Graph *createGraph(int V);
 struct AdjListNode *newAdjListNode(int dest, int weight);
 /////////
-
-typedef struct __day_queue
-{
-	int front, rear;
-	_day array[DAY_MAX];
-} _day_queue;
-
-_day_queue *init_queue();
-void enqueue(_day_queue *Queue, _day D);
 
 #endif
