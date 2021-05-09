@@ -5,7 +5,7 @@ void UpdateData(int id_person, int id_station, int daye)
 {
 	if (day[daye%16].person[id_person].status == 2 || day[daye%16].station[id_station].worst_affected == 2 || day[daye%16].person[id_person].status == 3 || day[daye%16].station[id_station].worst_affected == 3)
 	{
-		if (day[daye%16].person[id_person].status > day[daye%16].station[id_station].worst_affected)
+		if (day[daye%16].person[id_person].status != 4 && day[daye%16].person[id_person].status > day[daye%16].station[id_station].worst_affected)
 		{
 			UpdateStation(id_person, id_station, daye);
 		}
@@ -26,7 +26,7 @@ void UpdateStation(int id_person, int id_station, int daye)
 	L = day[daye%16].station[id_station].list;
 	while (L != NULL)
 	{
-		if(day[daye%16].person[L->person_id].status != 4 && (L->person_id != id_person)) {
+		if(day[daye%16].person[L->person_id].status != 4 && (L->person_id != id_person) && day[daye%16].person[L->person_id].status != day[daye%16].person[id_person].status ) {
 			day[daye%16].person[L->person_id].status = day[daye%16].person[id_person].status - 1;
 			day[daye%16].person[L->person_id].cause = id_person;
 			day[daye%16].person[L->person_id].days = 0;
@@ -40,7 +40,10 @@ void UpdateStation(int id_person, int id_station, int daye)
 void UpdatePerson(int id_person, int id_station, int daye)
 {
 	_list *L;
+   if(day[daye%16].person[id_person].status != 4)
+   {
 	day[daye%16].person[id_person].status = day[daye%16].station[id_station].worst_affected - 1;
+   
 	L = day[daye%16].station[id_station].list;
 	while (L != NULL)
 	{
@@ -57,6 +60,7 @@ void UpdatePerson(int id_person, int id_station, int daye)
 	}
 	day[daye%16].person[id_person].cause = L->person_id; // cause will be any arbitrary person on the station who has status same as worst affected.
 	day[daye%16].person[id_person].days = 0;
+   }
 }
 void UpdateRoute(_route *R, int id_person, int daye)
 {
@@ -113,6 +117,8 @@ void AddPerson(int id_person, int station_to, int daye)
 */
 void UpdateForPerson(_route *L, int id_person, int daye)
 {
+	if(day[daye%16].person[id_person].status != 4)
+	{
 	int station_from = L->station_id;
 	int station_to;
 	RemovePerson(id_person, station_from, daye);
@@ -123,6 +129,7 @@ void UpdateForPerson(_route *L, int id_person, int daye)
 		L = L->next_station;
 	}
 	AddPerson(id_person, station_to, daye);
+	}
 }
 void UpdateForDay(_path *P, int daye)
 {
@@ -140,6 +147,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 		int cur_station = day[start_day%16].person[list[i]].station;
 		day[start_day%16].station[cur_station].danger_value -= getDangerIndex(list[i], start_day);
 		day[start_day%16].person[list[i]].status = 3;
+		day[start_day%16].person[list[i]].cause = -1;
 		day[start_day%16].person[list[i]].days = 0;
 		day[start_day%16].station[cur_station].worst_affected = 3;
 		_list* L;
@@ -170,6 +178,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 	}
 	for(int i = 0; i < inum_people; i++) {
 		day[end_day].person[list[i]].status = 4;
+		day[end_day].person[list[i]].days =0;
 		int location = day[end_day].person[list[i]].station;
 		day[end_day].station[location].worst_affected = getWorstAffected(location, end_day);
 	}
