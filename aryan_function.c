@@ -57,23 +57,6 @@ void addEdge(struct Graph *graph, int src,
 	graph->array[dest].head = newNode;
 }
 
-_day_queue *init_queue()
-{
-	_day_queue *Queue = (void *)malloc(sizeof(_day_queue));
-	Queue->rear = -1;
-	// for(int i=0;i<DAY_MAX;i++)  //intitalizing to empty day
-	//     delete_day(Queue.array[i]);
-	return Queue;
-}
-
-void enqueue(_day_queue *Queue, _day D)
-{
-	Queue->rear++;
-	if (Queue->rear == DAY_MAX)
-		Queue->rear = 0;
-	//delete_day(Queue->array[Queue->rear]);
-	Queue->array[Queue->rear] = D;
-}
 /*  
 /////////////////////////////////////////////////////////////////////////
 #include <stdlib.h>
