@@ -265,10 +265,13 @@ void Copy2(int cur_day, int num_stations, int num_person)
 	}
 	for (int i = 0; i < num_person; i++)
 	{
+		if(day[(cur_day + 1) % 16].person[i].status != 4)
+		{
 		day[(cur_day + 1) % 16].person[i].status = day[(cur_day) % 16].person[i].status;
 		day[(cur_day + 1) % 16].person[i].days = day[(cur_day) % 16].person[i].days;
 		day[(cur_day + 1) % 16].person[i].cause = day[(cur_day) % 16].person[i].cause;
 		day[(cur_day + 1) % 16].person[i].station = day[(cur_day) % 16].person[i].station;
+		}
 		struct __list *temp5 = (struct __list *)malloc(sizeof(struct __list));
 		temp5->person_id = i;
 		temp5->next = NULL;

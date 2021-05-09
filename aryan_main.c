@@ -90,7 +90,7 @@ int main(void)
                 scanf("%d", &person_id);
 
 		if(day[(cur_day + 1) %16].person[person_id].status == 4) {
-			fprintf(stderr, "quarentined person cannot move");
+			fprintf(stderr, "quarentined person cannot move\n");
 			break;
 		}
 
@@ -98,7 +98,7 @@ int main(void)
                 printf("Give the id of the source and target stations: ");
                 scanf("%d %d", &from_where, &to_where);
 		if(day[(cur_day + 1)%16].person[person_id].station != from_where) {
-			fprintf(stderr, "Person not present on current station");
+			fprintf(stderr, "Person not present on current station\n");
 			break;
 		}
                 printf("\n");
@@ -341,6 +341,8 @@ int main(void)
 		        Backtrace(cur_day - X + 1, cur_day + 1, list_no_people, no_input_people, num_person, num_stations); 
 		        free(list_no_people);
 		        //6th day --> day[7];
+                cur_day++;
+                break;
 
             }
             
@@ -364,6 +366,11 @@ int main(void)
                 printf("Station id:  %d \n\nWorst affected person in this station:   %d\n\nDanger value of this station:  %f\n\n", temp1, day[(cur_day + 1) % 16].station[temp1].worst_affected, day[(cur_day + 1) % 16].station[temp1].danger_value);
                 printf("List of people in this station: \n");
                 struct __list *temp = day[(cur_day + 1) % 16].station[temp1].list;
+                if(temp==NULL)
+                {
+                    printf("Station is Empty.\n");
+                    continue;
+                }
                 while (temp != NULL)
                 {
                     printf("Person_id: %d     Person_status: %d\n\n", temp->person_id, day[(cur_day + 1) % 16].person[temp->person_id].status);
