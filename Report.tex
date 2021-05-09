@@ -36,6 +36,17 @@
 \newpage
 
 \section{Data Structures Used:}
+The project contains multiple structures for storing
+\begin{enumerate}
+    \item Routes: A linked list for storing the routes in a given graph. 
+    \item Person: It contains the status of a person (if the person is covid-positive or a contact etc.), length of his/her infection, who was it's cause and the station number.
+    \item Stations: It has a list of all the people currently in the station and it's current danger value.
+    \item Paths: A linked list for storing the routes of multiple people, it contains the person id, the route and a pointer to the next path structure.
+    \item Days: An array of structures which consists of stations, paths and people and can store these for up to 15 days.
+    \item Possible Paths: It is used to store the 3(or less) possible routes a person can take and their corresponding danger values.
+\end{enumerate}
+
+The graph implementation is done using adjacency lists and min-heaps.
 
 
 \newpage
@@ -44,7 +55,16 @@
 
 \newpage
 \section{Division Of Work:}
+\begin{itemize}
+    \item Aryan: 3-way Dijkstra algorithm
 
+    \item Khushi: 3-way Dijkstra algorithm
 
+    \item Vayur: Update functions and structs
+
+\item Abhinav: Update functions and structs
+
+\item Harish: main.c
+\end{itemize}
 
 \end{document}
