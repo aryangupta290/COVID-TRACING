@@ -21,6 +21,11 @@ int main(void)
 
         printf("Input the values for edge no %d: ", i + 1);
         scanf("%d %d %d", &from, &to, &distance);
+        while (distance <= 0 || from == to || from < 0 || to < 0 || from >= num_stations || to >= num_stations)
+        {
+            printf("Wrong input format for edge weight,Enter edge weight and to and from station again for this road: ");
+            scanf("%d %d %d", &from, &to, &distance);
+        }
         addEdge(graph, from, to, distance); //assuming vertices from 0 to N-1
     }
     printf("\n");
@@ -44,8 +49,12 @@ int main(void)
         int station;
         printf("Give station of person %d: ", i);
         scanf("%d", &station);
+        while (station < 0 || station >= num_stations)
+        {
+            printf("Input format for this station is incorrect , pls enter the the station again: ");
+            scanf("%d", &station);
+        }
         // inserting this person in the initial day struct
-
         add_day_struct(i, station);
     }
     printf("\n");
@@ -78,17 +87,27 @@ int main(void)
             int query;
             printf("Give query: ");
             scanf("%d", &query);
+            if (query > 5 || query == 0 || query < -1)
+            {
+                printf("Wrong query number ,pls try again\n");
+                continue;
+            }
 
             if (query == 2)
             {
                 int person_id;
                 printf("Give the person's id who wants to travel: ");
                 scanf("%d", &person_id);
+                if (person_id < 0 || person_id >= num_person)
+                {
+                    printf("Input format for this query 2 is incorrect , pls enter the query no again\n");
+                    continue;
+                }
 
                 if (day[(cur_day + 1) % 16].person[person_id].status == 4)
                 {
-                    fprintf(stderr, "quarantined person cannot move");
-                    break;
+                    fprintf(stderr, "quarantined person cannot move\n");
+                    continue;
                 }
 
                 int from_where, to_where;
@@ -96,8 +115,8 @@ int main(void)
                 scanf("%d %d", &from_where, &to_where);
                 if (day[(cur_day + 1) % 16].person[person_id].station != from_where)
                 {
-                    fprintf(stderr, "Person not present on current station");
-                    break;
+                    fprintf(stderr, "Person not present on current station\n");
+                    continue;
                 }
                 printf("\n");
 
@@ -127,9 +146,8 @@ int main(void)
                     printf("The corresponding danger value for this path is %lf\n\n", temp1->best_path_danger_value);
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
-                    printf("Do you want to traverse through this path: ");
+                    printf("Do you want to traverse through this path (give non zero input if u want to travel): ");
                     scanf("%d", &may_accept);
-
                     if (may_accept)
                     {
                         if (!if_added)
@@ -186,7 +204,7 @@ int main(void)
 
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
-                    printf("Do you want to traverse through any of the above paths: ");
+                    printf("Do you want to traverse through any of the above paths (give non zero input if u want to travel): ");
                     scanf("%d", &may_accept);
 
                     if (may_accept)
@@ -194,6 +212,11 @@ int main(void)
                         printf("Which path do you want to go through: ");
                         int which_path; // either 1 or 2
                         scanf("%d", &which_path);
+                        while (which_path > 2 || which_path < 1)
+                        {
+                            printf("Wrong input format for the path to choose ,Enter the path no again either 1 or 2: ");
+                            scanf("%d", &which_path);
+                        }
                         if (which_path == 1)
                         {
                             temp2 = &(temp1->best_path);
@@ -270,7 +293,7 @@ int main(void)
 
                     int may_accept;
                     // enter 1 if u want to go through this path else 0
-                    printf("Do you want to traverse through any of the above paths: ");
+                    printf("Do you want to traverse through any of the above paths(give non zero input if u want to travel): ");
                     scanf("%d", &may_accept);
 
                     if (may_accept)
@@ -278,6 +301,11 @@ int main(void)
                         printf("Which path do you want to go through: ");
                         int which_path; // either 1 or 2 or 3
                         scanf("%d", &which_path);
+                        while (which_path > 3 || which_path < 1)
+                        {
+                            printf("Wrong input format for the path to choose ,Enter the path no again either 1 or 2 or 3: ");
+                            scanf("%d", &which_path);
+                        }
                         if (which_path == 1)
                         {
                             temp2 = &(temp1->best_path);
@@ -325,9 +353,19 @@ int main(void)
                 int no_input_people;
                 printf("How many people are covid positive ");
                 scanf("%d", &no_input_people);
+                while (no_input_people >= num_person || no_input_people < 1)
+                {
+                    printf("Wrong input format for the input people ,Enter the values within bound: ");
+                    scanf("%d", &no_input_people);
+                }
                 printf("Enter value of X: ");
                 int X;
                 scanf("%d", &X);
+                while (X > 0 || X <= 14)
+                {
+                    printf("Wrong input format for X ,Enter the values between 1 to 15: ");
+                    scanf("%d", &X);
+                }
                 int *list_no_people;
                 list_no_people = (int *)calloc(no_input_people, sizeof(int));
                 printf("Enter list of all covid positive people: ");
@@ -345,6 +383,12 @@ int main(void)
                 printf("Give the id of the person whose status u want to print: ");
                 int temp1;
                 scanf("%d", &temp1);
+                if (temp1 < 0 || temp1 >= num_person)
+                {
+                    printf("Input format for this query 3 is incorrect , pls enter the query no again: ");
+                    continue;
+                }
+
                 printf("Person id:  %d\n\nStatus:  %d\n\nCurrently on which station:  %d\n\n", temp1, day[(cur_day + 1) % 16].person[temp1].status, day[(cur_day + 1) % 16].person[temp1].station);
                 if (day[(cur_day + 1) % 16].person[temp1].status && day[(cur_day + 1) % 16].person[temp1].status < 5)
                 {
@@ -357,10 +401,15 @@ int main(void)
                 printf("GIve the station no whose details u want to print: ");
                 int temp1;
                 scanf("%d", &temp1);
+                if (temp1 < 0 || temp1 >= num_stations)
+                {
+                    printf("Input format for this query 4 is incorrect , pls enter the query no again: ");
+                    continue;
+                }
                 printf("Station id:  %d \n\nWorst affected person in this station:   %d\n\nDanger value of this station:  %f\n\n", temp1, day[(cur_day + 1) % 16].station[temp1].worst_affected, day[(cur_day + 1) % 16].station[temp1].danger_value);
                 printf("List of people in this station: \n");
                 struct __list *temp = day[(cur_day + 1) % 16].station[temp1].list;
-                if(temp==NULL)
+                if (temp == NULL)
                 {
                     printf("Station is Empty.\n");
                     continue;
