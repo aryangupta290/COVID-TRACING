@@ -31,7 +31,6 @@ void UpdateStation(int id_person, int id_station, int daye)
 			day[daye%16].person[L->person_id].cause = id_person;
 			day[daye%16].person[L->person_id].days = 0;
 			day[daye%16].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
-			//L = L->next;
 		}
 		L = L->next;
 	}
