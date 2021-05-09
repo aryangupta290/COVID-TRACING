@@ -128,7 +128,7 @@ void UpdateForDay(_path *P, int daye)
 {
 	while (P != NULL)
 	{
-		UpdateRoute(P->next_station, P->person_id, daye);
+		UpdateForPerson(P->next_station, P->person_id, daye);
 		P = P->next_person;
 	}
 }
@@ -136,9 +136,10 @@ void UpdateForDay(_path *P, int daye)
 void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_person, int num_stations)
 {
 	for(int i = 0; i < inum_people; i++) {
+		int cur_station = day[start_day%16].person[list[i]].station;
+		day[start_day%16].station[cur_station].danger_value -= getDangerIndex(list[i], start_day);
 		day[start_day%16].person[list[i]].status = 3;
 		day[start_day%16].person[list[i]].days = 0;
-		int cur_station = day[start_day%16].person[list[i]].station;
 		day[start_day%16].station[cur_station].worst_affected = 3;
 		_list* L;
 		L = day[start_day%16].station[cur_station].list;
@@ -162,8 +163,13 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 		PrintQuery1(i,list,inum_people,num_person);
 		if(i >= end_day)
 			break;
-		Copy(i,num_stations,num_person);
+		Copy2(i,num_stations,num_person);
 		DayIncrement(i+1, num_person);
+	}
+	for(int i = 0; i < inum_people; i++) {
+		day[end_day].person[list[i]].status = 4;
+		int location = day[end_day].person[list[i]].station;
+		day[end_day].station[location].worst_affected = getWorstAffected(location, end_day);
 	}
 }
 
@@ -225,10 +231,44 @@ void Copy(int curr_day,int T_sta,int T_ppl)
 		day[(curr_day + 1) % 16].person[i].status = day[curr_day%16].person[i].status;
 		day[(curr_day + 1) % 16].person[i].days = day[curr_day%16].person[i].days;
 		day[(curr_day + 1) % 16].person[i].cause = day[curr_day%16].person[i].cause;
+		day[(curr_day + 1) % 16].person[i].station = day[curr_day%16].person[i].station;
 	}
 	for (int i = 0; i < T_sta; i++)
 	{
 		day[(curr_day + 1) % 16].station[i].worst_affected = day[curr_day%16].station[i].worst_affected;
 		day[(curr_day + 1) % 16].station[i].danger_value = day[curr_day%16].station[i].danger_value;
+	}
+}
+
+void Copy2(int cur_day, int num_stations, int num_person)
+{
+	//day[(cur_day + 1) % 16].person = (struct __person *)malloc(num_person * sizeof(struct __person));
+	//day[(cur_day + 1) % 16].station = (struct __station *)malloc(num_stations * sizeof(struct __station));
+	//day[(cur_day + 1) % 16].path = NULL;
+
+	for (int i = 0; i < num_stations; i++)
+	{
+		day[(cur_day + 1) % 16].station[i].worst_affected = day[(cur_day) % 16].station[i].worst_affected;
+		day[(cur_day + 1) % 16].station[i].list = NULL;
+		day[(cur_day + 1) % 16].station[i].danger_value = day[(cur_day) % 16].station[i].danger_value;
+	}
+	for (int i = 0; i < num_person; i++)
+	{
+		day[(cur_day + 1) % 16].person[i].status = day[(cur_day) % 16].person[i].status;
+		day[(cur_day + 1) % 16].person[i].days = day[(cur_day) % 16].person[i].days;
+		day[(cur_day + 1) % 16].person[i].cause = day[(cur_day) % 16].person[i].cause;
+		day[(cur_day + 1) % 16].person[i].station = day[(cur_day) % 16].person[i].station;
+		struct __list *temp5 = (struct __list *)malloc(sizeof(struct __list));
+		temp5->person_id = i;
+		temp5->next = NULL;
+		if (day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list == NULL)
+		{
+			day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list = temp5;
+		}
+		else
+		{
+			temp5->next = day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list;
+			day[(cur_day + 1) % 16].station[day[(cur_day) % 16].person[i].station].list = temp5;
+		}
 	}
 }

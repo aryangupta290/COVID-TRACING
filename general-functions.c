@@ -96,7 +96,7 @@ void PrintStatus(int n)
 }
 void PrintQuery1(int daye, int* list, int inum_people, int num_person)
 {
-	printf("For day %d:\n",daye);
+	printf("\nFor day %d:\n",daye);
 	for(int id_person = 0; id_person < num_person; id_person++) {
 		if(IsOnList(daye, id_person, list, inum_people)) 
 			PrintPersonStatus(daye, id_person);
@@ -104,8 +104,11 @@ void PrintQuery1(int daye, int* list, int inum_people, int num_person)
 }
 int IsOnList(int daye, int id_person, int* list, int inum_people) 
 {
+	int k = day[daye%16].person[id_person].cause;
 	for(int i = 0; i < inum_people; i++) {
 		if(day[daye%16].person[id_person].cause == list[i])
+			return 1;
+		else if(day[daye%16].person[k].cause == list[i])
 			return 1;
 	}
 	return 0;
@@ -116,6 +119,8 @@ void PrintPersonStatus(int daye, int id_person)
 	_person* per = &(day[daye%16].person[id_person]);
 	printf("Person ID is %d\n",id_person);
 	printf("Person cause is %d\n",per->cause);
+	if(per->status == 1)
+		printf("Root cause is %d\n", day[daye%16].person[per->cause].cause);
 	printf("Person is on station %d\n",per->station);
 	printf("Person status is %d, which corresponds to ",per->status);
 	PrintStatus(per->status);
