@@ -54,7 +54,8 @@ e)   : Entering (5) would mean that we are done for all the queries on this day 
 
 f)   : Entering (-1) would exit us from the program
 
-Also if we give query 1, then after we process it, we would directly goto the next day so we don't need to give 5 again
+Also if we give query 1,then after we process it,we would directly go to the next day,and so there is no need to input 5 again to end the day(as the day is automatically ended).
+
 
 ////////////
 
