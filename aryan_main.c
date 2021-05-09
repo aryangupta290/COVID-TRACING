@@ -87,7 +87,7 @@ int main(void)
 
                 if (day[(cur_day + 1) % 16].person[person_id].status == 4)
                 {
-                    fprintf(stderr, "quarentined person cannot move");
+                    fprintf(stderr, "quarantined person cannot move");
                     break;
                 }
 
@@ -360,9 +360,9 @@ int main(void)
                 printf("Station id:  %d \n\nWorst affected person in this station:   %d\n\nDanger value of this station:  %f\n\n", temp1, day[(cur_day + 1) % 16].station[temp1].worst_affected, day[(cur_day + 1) % 16].station[temp1].danger_value);
                 printf("List of people in this station: \n");
                 struct __list *temp = day[(cur_day + 1) % 16].station[temp1].list;
-                if (temp == NULL)
+                if(temp==NULL)
                 {
-                    printf("No one is presnet in this station\n");
+                    printf("Station is Empty.\n");
                     continue;
                 }
                 while (temp != NULL)
