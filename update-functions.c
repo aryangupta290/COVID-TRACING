@@ -135,6 +135,7 @@ void UpdateForDay(_path *P, int daye)
 
 void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_person, int num_stations)
 {
+	Copy2(start_day-1,num_stations,num_person);
 	for(int i = 0; i < inum_people; i++) {
 		int cur_station = day[start_day%16].person[list[i]].station;
 		day[start_day%16].station[cur_station].danger_value -= getDangerIndex(list[i], start_day);
@@ -155,6 +156,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 	}
 
 	_path *P;
+	
 	for (int i = start_day; i <= end_day;i++)
 	{
 		P = day[(i-1)%16].path;
