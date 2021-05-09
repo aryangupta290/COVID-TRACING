@@ -26,13 +26,14 @@ void UpdateStation(int id_person, int id_station, int daye)
 	L = day[daye%16].station[id_station].list;
 	while (L != NULL)
 	{
-		if(day[daye%16].person[L->person_id].status != 4) {
+		if(day[daye%16].person[L->person_id].status != 4 && (L->person_id != id_person)) {
 			day[daye%16].person[L->person_id].status = day[daye%16].person[id_person].status - 1;
 			day[daye%16].person[L->person_id].cause = id_person;
 			day[daye%16].person[L->person_id].days = 0;
 			day[daye%16].station[id_station].danger_value += getDangerIndex(L->person_id, daye);
-			L = L->next;
+			//L = L->next;
 		}
+		L = L->next;
 	}
 	// Changed the status of all people on the station.
 	day[daye%16].station[id_station].worst_affected = day[daye%16].person[id_person].status - 1;
@@ -222,13 +223,13 @@ void Copy(int curr_day,int T_sta,int T_ppl)
 {
 	for(int i=0;i<T_ppl;i++)
 	{
-		day[(cur_day + 1) % 16].person[i].status = day[cur_day%16].person[i].status;
-		day[(cur_day + 1) % 16].person[i].days = day[cur_day%16].person[i].days;
-		day[(cur_day + 1) % 16].person[i].cause = day[cur_day%16].person[i].cause;
+		day[(curr_day + 1) % 16].person[i].status = day[curr_day%16].person[i].status;
+		day[(curr_day + 1) % 16].person[i].days = day[curr_day%16].person[i].days;
+		day[(curr_day + 1) % 16].person[i].cause = day[curr_day%16].person[i].cause;
 	}
 	for (int i = 0; i < T_sta; i++)
 	{
-		day[(cur_day + 1) % 16].station[i].worst_affected = day[cur_day%16].station[i].worst_affected;
-		day[(cur_day + 1) % 16].station[i].danger_value = day[cur_day%16].station[i].danger_value;
+		day[(curr_day + 1) % 16].station[i].worst_affected = day[curr_day%16].station[i].worst_affected;
+		day[(curr_day + 1) % 16].station[i].danger_value = day[curr_day%16].station[i].danger_value;
 	}
 }
