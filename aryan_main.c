@@ -283,7 +283,7 @@ int main(void)
                 printf("Person id:  %d\n\nStatus:  %d\n\nCurrently on which station:  %d\n\n", temp1, day[(cur_day + 1) % 16].person[temp1].status, day[(cur_day + 1) % 16].person[temp1].station);
                 if (day[(cur_day + 1) % 16].person[temp1].status && day[(cur_day + 1) % 16].person[temp1].status < 5)
                 {
-                    printf("Cause: %d\n Station: %d\n", day[(cur_day + 1) % 16].person[temp1].cause, day[(cur_day + 1) % 16].person[temp1].days);
+                    printf("Cause: %d\nNumber of days of infection: %d\n", day[(cur_day + 1) % 16].person[temp1].cause, day[(cur_day + 1) % 16].person[temp1].days);
                 }
                 printf("\n");
             }

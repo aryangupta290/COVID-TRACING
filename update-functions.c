@@ -162,7 +162,7 @@ void Backtrace(int start_day, int end_day, int* list, int inum_people, int num_p
 		PrintQuery1(i,list,inum_people,num_person);
 		if(i >= end_day)
 			break;
-		//copy_day(i,num_stations, num_person); 
+		Copy(i,num_stations,num_person);
 		DayIncrement(i+1, num_person);
 	}
 }
