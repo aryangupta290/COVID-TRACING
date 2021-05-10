@@ -42,13 +42,13 @@
 \section{Data Structures Used:}
 
 \begin{enumerate}
-    \item Minheap: A min heap is used for finding the safest and shortest path as specified in query 2.
+    \item Min-Heap: A min-heap is used for finding the safest and shortest path as specified in query 2.
     
-	It performs heapify operation in log(n) time.
+	It performs heapify operation in $\log(n)$ time.
     \item Linked List: Linked lists are used at various places to list all the people present at the station.
 	
 	Linked lists are also used to describe the route taken by various people to go from one station to another.
-    \item Array: Arrays are used to store all elementary forms of data and are also used to implement other data structures such as queues and Adjacency list.
+    \item Array: Arrays are used to store all elementary forms of data and are also used to implement other data structures such as queues and adjacency list.
     \item Hash Table : Hash Table are used to store the status of each day for 16 days at a time. As we surpass that limit, day day struct is overwritten, starting from the lowest day.
     \item Adjacency list:
 	Adjecency list is used to store the graph connecting stations.
@@ -64,32 +64,34 @@
     \item Update Functions: {\begin{itemize}
         \item Utility:
 		Whenever we are given query 2 (A person travels from one station to another), this algorithm is used.
+		
 		Using this algorithm, we go to each station as specified by the person's route and then update the status of all the people present there.
+		
 		We also store the route taken by the person as we will need it to backtrace once query 1 is given.
 		\item Time complexity:
-		This opperation takes on average O(n*l) time, where 'n' is the number of stations the person visited to reach his final destination and 'l' is the average number of people on those station.
-		\item Memory Complexity: O(1)
+		This operation takes on average $O(n\cdot l)$ time, where $n$ is the number of stations the person visited to reach his final destination and $l$ is the average number of people on those station.
+		\item Memory Complexity: $O(1)$
     \end{itemize}
 	}
 	\item Backtrace functions: {\begin{itemize}
         \item Utility:
-		When query 1 is invoked (Given list L of covid positive people, print their primary and secondary contacts), this algorithm is used.
+		When query 1 is invoked (Given list $L$ of covid positive people, print their primary and secondary contacts), this algorithm is used.
 		
-		Using this algorithm, we first update the status of all the people on the list as well as the status of all the people present on the same station on the day people of list L became covid positive.
+		Using this algorithm, we first update the status of all the people on the list as well as the status of all the people present on the same station on the day people of list $L$ became covid positive.
 		
-		Then we call the Update functions on that day onwards, using the updated status of all the people and update for all the paths taken by all the people in the past X days.
+		Then we call the Update functions on that day onwards, using the updated status of all the people and update for all the paths taken by all the people in the past $X$ days.
 		
-		At the end of each day, we also copy the current day struct into the next day struct to have a state table of the changes on each day and traverse throug all the people to print primary and secondary contacts of the people on the list L.
+		At the end of each day, we also copy the current day struct into the next day struct to have a state table of the changes on each day and traverse through all the people to print primary and secondary contacts of the people on the list $L$.
 		\item Time complexity:
-		This opperation take on average O(V*X + n*X) time, where V is the number of stations, n is the number of people, and X is the given input value of X.
-		\item Memory Complexity: O(1)
+		This operation takes on average $O(V\cdot X + N\cdot X)$ time, where $V$ is the number of stations, $N$ is the number of people, and $X$ is the given input value of $X$.
+		\item Memory Complexity: $O(1)$
     \end{itemize}
 	}
 	\item Copy functions: 
 	{\begin{itemize}
         \item Utility: We must maintain the state of each day, therefore at the end of a day, we copy the struct of the current day into the next day and work with the copied struct.
-		\item Time complexity: This operation takes O(V) time, where V is the total number of stations in the graph.
-	    \item Memory Complexity: O(1)
+		\item Time complexity: This operation takes $O(V)$ time, where $V$ is the total number of stations in the graph.
+	    \item Memory Complexity: $O(1)$
     \end{itemize}
 	}
 \end{enumerate}
@@ -97,22 +99,27 @@
 
 3-way Dijkstra Implementation(Query 2): 
 	{\begin{itemize}
-        \item Utility: We first define a new edge weight which is defined as if we are going from A to B , then the cost for this operation is 100000* dangervalue of station B + distance between station A and station B. We do this so that while applying Dijkstra algorithm , this first priority is always given to danger value and only if the danger value is same for two paths,the distance between the stations is considered.We are able to achieve this just because of the sheer value of 100000 which ensures that whatsoever distance between two stations might be ,the priority is always given to danger value.
+        \item Utility: We first define a new edge weight which is defined as if we are going from A to B , then the cost for this operation is $100000\times dangervalue(B) + dist(A,B)$.
         
-Now initially we apply the simple Dijkstra algorithm in O(nlogn) using min heaps and we also store the parent of each node and so now we retrace the path for the shortest path using the parent array.
+        We do this so that while applying Dijkstra algorithm, this first priority is always given to danger value and only if the danger value is same for two paths, the distance between the stations is considered. We are able to achieve this just because of the sheer value of 100000 which ensures that whatsoever distance between two stations might be, the priority is always given to danger value.
+        
+Now initially we apply the simple Dijkstra algorithm in $O(nlogn)$ using min heaps and we also store the parent of each node and so now we retrace the path for the shortest path using the parent array.
 
-For the second shortest path we iterate through all the nodes of the the shortest path and now for each of the nodes ,we look at the connecting nodes and using this find the 2nd shortest path and a possible contender of the third shortest path .Meanwhile we also some conditions like there should not be any two-way cycle and some other conditions like from the neighbouring node , the target node should be reachable,etc.
+For the second shortest path we iterate through all the nodes of the the shortest path and now for each of the nodes ,we look at the connecting nodes and using this find the $2^{nd}$ shortest path and a possible contender of the third shortest path. Meanwhile we also some conditions like there should not be any two-way cycle and some other conditions like from the neighbouring node, the target node should be reachable, etc.
 
 Now we trace back the second shortest path(if such a path exits else we return).
 
 Now we repeat the same process with the second shortest path and find the third shortest path is such a path exists and we just compare the total cost of travel with the possibe contender we obtained in step 2, whichever is lower is considered as the third shortest path and again we retrace the path using the parent array and the second shortest path.
 
 
-		\item Time complexity: O(nlog n) (including tracing the path)
-	    \item Memory Complexity: O(n)
+		\item Time complexity: $O(nlog n)$ (including tracing the path)
+	    \item Memory Complexity: $O(n)$
     \end{itemize}
 	}
 
+
+\newpage
+\section{Error Handling}
 
 \newpage
 \section{Division Of Work:}
