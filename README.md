@@ -1,8 +1,8 @@
 # COVID-Tracing
 
-We would be submitting 4 files on moodle with the names aryan_main.c,aryan_fucntion.c,general_functions.c,update_functions.c .
+We would be submitting 4 source code files on moodle with the names main.c,k-way-functions.c,general_functions.c,update_functions.c .
 
-Compilation instruction: Use  gcc aryan_main.c  aryan_function.c general-functions.c update-functions.c
+Compilation instruction: Use  gcc main.c  k-way-functions.c general-functions.c update-functions.c
 
 
 // BASIC INFO:
