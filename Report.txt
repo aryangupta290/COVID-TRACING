@@ -1,0 +1,49 @@
+REPORT:
+Data Structures:
+1. Minheap:
+	A min heap is used for finding the safest and shortest path as specified in query 2.
+	it performs heapify operation in log(n) time.
+2. Linked list:
+	Linked lists are used at various places to list all the people present at the station.
+	Linked lists are also used to describe the route taken by various people to go from one station to another.
+3. Array:
+	Arrays are used to store all elementary forms of data and are also used to implement other data structures such as queues and Adjacency list.
+4. Queue:
+	Queues are used to store the status of each day for 16 days at a time. As we surpass that limit, day day struct is overwritten, starting from the lowest day.
+5. Adjacency list:
+	Adjecency list is used to store the graph connecting stations.
+
+Algorithms used:
+
+1. Update functions:
+	Utility:
+		Whenever we are given query 2 (A person travels from one station to another), this algorithm is used.
+		Using this algorithm, we go to each station as specified by the person's route and then update the status of all the people present there.
+		We also store the route taken by the person as we will need it to backtrace once query 1 is given.
+	Time complexity:
+		This opperation takes on average O(n*l) time, where 'n' is the number of stations the person visited to reach his final destination and 'l' is the average number of people on those station.
+2. Backtrace functions:
+	Utility:
+		When query 1 is invoked (Given list L of covid positive people, print their primary and secondary contacts), this algorithm is used.
+		Using this algorithm, we first update the status of all the people on the list as well as the status of all the people present on the same station on the day people of list L became covid positive.
+		Then we call the Update functions on that day onwards, using the updated status of all the people and update for all the paths taken by all the people in the past X days.
+		At the end of each day, we also copy the current day struct into the next day struct to have a state table of the changes on each day and traverse throug all the people to print primary and secondary contacts of the people on the list L.
+	Time complexity:
+		This opperation take on average O(V*X + n*X) time, where V is the number of stations, n is the number of people, and X is the given input value of X.
+3. Copy functions:
+	Utility:
+		We must maintain the state of each day, therefore at the end of a day, we copy the struct of the current day into the next day and work with the copied struct.
+	Time complexity:
+		This opperation takes O(V) time, where V is the total number of stations in the graph.
+4. Path finding functions:
+	Utility:
+
+	Time complexity:
+
+Division of work:
+Aryan: K-way path finding Algorithm, main.c
+Abhinav: Graph implementation, main.c, report writing
+Vayur: Update functions, structs, backtrace functions
+Khushi: Update functions, Copy day functions, backtrace functions
+Harish: main.c, general purpose functions
+
