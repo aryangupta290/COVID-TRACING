@@ -366,7 +366,7 @@ int main(void)
                 printf("Enter value of X: ");
                 int X;
                 scanf("%d", &X);
-                while (X <= 0 || X >= 15 || X>=cur_day)
+                while (X <= 0 || X >= 15 || X >= cur_day)
                 {
                     printf("Wrong input format for X ,Enter the values between 1 to 15: ");
                     scanf("%d", &X);
@@ -375,7 +375,14 @@ int main(void)
                 list_no_people = (int *)calloc(no_input_people, sizeof(int));
                 printf("Enter list of all covid positive people: ");
                 for (int i = 0; i < no_input_people; i++)
+                {
                     scanf("%d", list_no_people + i);
+                    if (list_no_people[i] < 0 || list_no_people[i] >= num_person)
+                    {
+                        printf("This person is not present in any stations,pls reenter person index:  ");
+                        scanf("%d", list_no_people + i);
+                    }
+                }
                 Backtrace(cur_day - X + 1, cur_day + 1, list_no_people, no_input_people, num_person, num_stations);
                 free(list_no_people);
                 cur_day++;
