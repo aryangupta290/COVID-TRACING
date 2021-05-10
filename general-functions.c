@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 const char* status_mapping[] = {
-	"negative", "secondary_contact", "primary_contact", "positive", "quarentined"
+	"negative", "secondary_contact", "primary_contact", "positive", "quarantined"
 };
 float getDangerIndex(int id_person, int daye)
 {
