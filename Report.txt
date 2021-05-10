@@ -1,3 +1,12 @@
+OVERVIEW:
+For this project, we are given a some stations, and there are some bidirectional roads connecting some of them such that there exists at least one path through any two stations.
+We have modelled this problem as a graph using Adjecency lists.
+Then, we are given where each person is present, and this concludes the initial status of the graph.
+People are present at various stations and user is given an option to move them around. Then on a later day, user can declare a list L of people that were covid positive, and then we must trace back all the happenings since the day people got infected and then print all the primary and secondary contacts of the list for all the days since that day to the current day.
+To do this, we maintain a Day struct that stores the status of the whole graph for each day, and also stores the changes that took place on each day.
+Thus, when we are asked to backtrace, we can use the struct of the first day, change the status of the person and then makes changes for all the days accordingly.
+We will know exactly what changes took place for each day as we have stored them in our day struct. Using this we will proceed to update the day struct, using the same functions we used to initially update to update the status according to new information provided. 
+We have also implemented functionality to check the status of a person or station on the current day. User can give the id of a person and then the person's status will be printed, Or user can give the id of a station and the staiton's status will be printed.
 REPORT:
 Data Structures:
 1. Minheap:
