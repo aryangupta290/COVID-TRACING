@@ -12,6 +12,11 @@ int main(void)
 
     printf("Give the no of stations,no of roads,no of people: ");
     scanf("%d %d %d", &num_stations, &num_roads, &num_person);
+    while (num_stations < 1 || num_person < 0 || num_roads < 0)
+    {
+        printf("Pls enter non negative inputs for no of stations,no of roads,no of people: ");
+        scanf("%d %d %d", &num_stations, &num_roads, &num_person);
+    }
 
     struct Graph *graph = createGraph(num_stations);
 
@@ -361,7 +366,7 @@ int main(void)
                 printf("Enter value of X: ");
                 int X;
                 scanf("%d", &X);
-                while (X > 0 || X <= 14)
+                while (X <= 0 || X <= 15 || X<=cur_day)
                 {
                     printf("Wrong input format for X ,Enter the values between 1 to 15: ");
                     scanf("%d", &X);
