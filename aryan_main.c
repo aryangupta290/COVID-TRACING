@@ -366,7 +366,7 @@ int main(void)
                 printf("Enter value of X: ");
                 int X;
                 scanf("%d", &X);
-                while (X <= 0 || X <= 15 || X<=cur_day)
+                while (X <= 0 || X >= 15 || X>=cur_day)
                 {
                     printf("Wrong input format for X ,Enter the values between 1 to 15: ");
                     scanf("%d", &X);
