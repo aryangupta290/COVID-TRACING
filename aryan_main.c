@@ -111,7 +111,7 @@ int main(void)
 
                 if (day[(cur_day + 1) % 16].person[person_id].status == 4)
                 {
-                    fprintf(stderr, "quarantined person cannot move\n");
+                    fprintf(stderr, "The person whose id is entered is quarantined.Quarantined person cannot move\n");
                     continue;
                 }
 
@@ -120,7 +120,7 @@ int main(void)
                 scanf("%d %d", &from_where, &to_where);
                 if (day[(cur_day + 1) % 16].person[person_id].station != from_where)
                 {
-                    fprintf(stderr, "Person not present on current station\n");
+                    fprintf(stderr, "Person is not present on the source station\n");
                     continue;
                 }
                 printf("\n");
@@ -308,7 +308,7 @@ int main(void)
                         scanf("%d", &which_path);
                         while (which_path > 3 || which_path < 1)
                         {
-                            printf("Wrong input format for the path to choose ,Enter the path no again either 1 or 2 or 3: ");
+                            printf("Wrong input format for the path to choose ,Enter the path no again (either 1 or 2 or 3): ");
                             scanf("%d", &which_path);
                         }
                         if (which_path == 1)
@@ -360,7 +360,7 @@ int main(void)
                 scanf("%d", &no_input_people);
                 while (no_input_people >= num_person || no_input_people < 1)
                 {
-                    printf("Wrong input format for the input people ,Enter the values within bound: ");
+                    printf("Wrong input format for the input people ,Enter the values within bound ( 1 - %d ): ",num_person);
                     scanf("%d", &no_input_people);
                 }
                 printf("Enter value of X: ");
@@ -390,11 +390,14 @@ int main(void)
                 scanf("%d", &temp1);
                 if (temp1 < 0 || temp1 >= num_person)
                 {
-                    printf("Input format for this query 3 is incorrect , pls enter the query no again: ");
+                    printf("Input format for this query 3 is incorrect.\nThe person id should be in between 0 and %d (0 inclusive). Please enter the query no again.\n",num_person);
                     continue;
                 }
 
-                printf("Person id:  %d\n\nStatus:  %d\n\nCurrently on which station:  %d\n\n", temp1, day[(cur_day + 1) % 16].person[temp1].status, day[(cur_day + 1) % 16].person[temp1].station);
+                printf("Person id:  %d\n\n",temp1);
+                printf("Status:  %d -> ",day[(cur_day + 1) % 16].person[temp1].status);
+                PrintStatus(day[(cur_day + 1) % 16].person[temp1].status);
+                printf("\n\nCurrently on which station:  %d\n\n", day[(cur_day + 1) % 16].person[temp1].station);
                 if (day[(cur_day + 1) % 16].person[temp1].status && day[(cur_day + 1) % 16].person[temp1].status < 5)
                 {
                     printf("Cause: %d\nNumber of days of infection: %d\n", day[(cur_day + 1) % 16].person[temp1].cause, day[(cur_day + 1) % 16].person[temp1].days);
@@ -403,12 +406,12 @@ int main(void)
             }
             else if (query == 4)
             {
-                printf("GIve the station no whose details u want to print: ");
+                printf("Give the station no whose details u want to print: ");
                 int temp1;
                 scanf("%d", &temp1);
                 if (temp1 < 0 || temp1 >= num_stations)
                 {
-                    printf("Input format for this query 4 is incorrect , pls enter the query no again: ");
+                    printf("Input format for this query 4 is incorrect.\nthe Station number should be in between 0 and %d (0 inclusive). Please enter the query no again.\n",num_stations);
                     continue;
                 }
                 printf("Station id:  %d \n\nWorst affected person in this station:   %d\n\nDanger value of this station:  %f\n\n", temp1, day[(cur_day + 1) % 16].station[temp1].worst_affected, day[(cur_day + 1) % 16].station[temp1].danger_value);
@@ -421,7 +424,9 @@ int main(void)
                 }
                 while (temp != NULL)
                 {
-                    printf("Person_id: %d     Person_status: %d\n\n", temp->person_id, day[(cur_day + 1) % 16].person[temp->person_id].status);
+                    printf("Person_id: %d     Person_status: %d -> ", temp->person_id, day[(cur_day + 1) % 16].person[temp->person_id].status);
+                    PrintStatus(day[(cur_day + 1) % 16].person[temp->person_id].status);
+                    printf("\n\n");
                     temp = temp->next;
                 }
                 printf("\n\n");
